@@ -1,0 +1,91 @@
+<div class="row">
+  <div class="col-sm-12">
+    <div class="card">
+      <div class="card-header">
+        <strong>Add CMS</strong>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="addCmsForm" method="post" class="form-horizontal" (ngSubmit)="addCms()">
+          <div class="form-group row">
+            <div class="col-md-12">
+              <div class="input-group">
+
+                <input type="text" formControlName="page_title" id="input1-group1" name="input1-group1" class="form-control" placeholder="Page-title" >
+
+              </div>
+            </div>
+
+          </div>
+          <p style="color:red; font-size:12px" class="error" *ngIf="addCmsForm.controls['page_title'].hasError('required') && isSubmited">
+            page_title required
+          </p>
+          <p style="color:red; font-size:12px" class="error" *ngIf="addCmsForm.controls['page_title'].hasError('minLength') && isSubmited">
+              page_title 3
+            </p>
+          <div class="form-group row">
+            <div class="col-md-12">
+              <div class="input-group">
+                <!-- <input type="" id="input2-group1" name="input2-group1" class="form-control" placeholder="Page-category"
+                  autocomplete="email"> -->
+                <select formControlName="page_category" class="form-control" (change) = "getsubcategory($event)">
+                  <option value="">Select Category</option>
+                  <option *ngFor="let category of categories" value="{{category.category_name}}">{{category.category_name}}</option>
+                
+
+                </select>
+
+              </div>
+            </div>
+            <p style="color:red; font-size:12px" class="error" *ngIf="addCmsForm.controls['page_category'].hasError('required') && isSubmited">
+              page_category required
+            </p>
+          </div>
+          <div class="form-group row" *ngIf="subcategories" >
+              <div class="col-md-12">
+                <div class="input-group">
+                  <!-- <input type="" id="input2-group1" name="input2-group1" class="form-control" placeholder="Page-category"
+                    autocomplete="email"> -->
+                    
+
+                  <select formControlName="sub_category" class="form-control">
+                    <option value="">Select Sub Category</option>
+                   
+                    <option *ngFor="let subcat of subcategories" value="{{subcat.category_name}}">{{subcat.category_name}}</option>
+                  
+  
+                  </select>
+  
+                </div>
+              </div>
+              <!-- <p style="color:red; font-size:12px" class="error" *ngIf="addCmsForm.controls['sub_category'].hasError('required') && isSubmited">
+                sub_category required
+              </p> -->
+            </div>
+          <!-- <div class="form-group row"> -->
+          <div class="col-md-12 form-group">
+            <div class="input-group">
+              <div class="row">
+                <div class="col-md-12">
+              <!-- <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fa fa-euro"></i></span>
+                </div> -->
+              <!-- <input type="text" id="input3-group1" name="input3-group1" class="form-control" placeholder="Content" [froalaEditor]> -->
+
+              <div formControlName="content" name="content" [froalaEditor] ></div>
+            </div>
+          </div>
+
+            </div>
+
+          </div>
+          <!-- </div> -->
+          <div class="card-footer">
+            <button type="submit" class="btn btn-sm btn-success">
+              <i class="fa fa-dot-circle-o"></i> Add CMS</button>
+            <!-- <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button> -->
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div>

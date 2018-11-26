@@ -1,0 +1,80 @@
+<!-- <h1 style="text-align:center">My Profile</h1>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-6" style="padding-top:20px">
+      <form [formGroup]="viewProfileForm">
+        <label>
+          Email
+        </label>
+        <div class="form-group row">
+
+          <div class="col-md-8">
+            <div class="input-group">
+
+              <input type="text" formControlName="email" class="form-control" />
+            </div>
+          </div>
+        </div>
+        <label>
+          Firstname
+        </label>
+        <div class="form-group row">
+
+          <div class="col-md-8">
+
+            <div class="input-group">
+
+              <input type="text" formControlName="firstName" class="form-control" />
+            </div>
+          </div>
+        </div>
+        <label>
+          LastName
+        </label>
+        <div class="form-group row">
+
+          <div class="col-md-8">
+            <div class="input-group">
+
+              <input type="text" formControlName="lastName" class="form-control" />
+            </div>
+          </div>
+        </div>
+        <label>
+          Dob
+        </label>
+        <div class="form-group row">
+
+          <div class="col-md-8">
+            <div class="input-group">
+
+              <input type="text" formControlName="dob" class="form-control" />
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-info" [routerLink]="['/auth/superadmin/ProfileEdit']">Update Profile </button>
+      </form>
+    </div>
+    <div class="col-sm-6">
+
+    </div>
+  </div>
+</div> -->
+<h1 style="text-align:center"> Profile </h1>
+
+<div class="card">
+  <!-- <img src="https://www.gstatic.com/webp/gallery3/2.png" alt="John" style="width:100% " class="img-responsive" > -->
+  <div class="profile-userpic">
+     
+    <img src="{{apiUrl}}{{image}}" class="img-responsive" alt=""  input type="file" accept="image/*" (change)="onImageChange($event)" class="uploadFile fa fa-pencil" />
+    
+    <input type="file" accept="image/*" (change)="onImageChange($event)" class="uploadFile " style="padding:20px"/>
+  </div>
+Name<p style="color:grey;">{{firstName}}{{lastName}}</p>
+ Email:<p class="title">{{email}}</p>
+  D.O.B<p style="color:grey">{{dob}}</p>
+  <div style="margin: 24px 0;">
+
+ </div>
+ <p><button [routerLink]="['/auth/ProfileEdit']">Edit Profile</button></p>
+</div>

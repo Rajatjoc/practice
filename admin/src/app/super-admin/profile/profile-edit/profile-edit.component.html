@@ -1,0 +1,98 @@
+
+   
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-2"></div>
+      <div class="col-sm-8">
+          <div class="card">
+            <div class="card-header">
+              <strong>Update Profile</strong> 
+            </div>
+            <div class="card-body">
+                <div class="row">
+    <div  class="col-sm-2"></div>
+    <div class="col-sm-8" style="padding-top:20px">
+        <form [formGroup]="editProfileForm" (ngSubmit)= "updateProfile()">
+           
+            <div class="form-group row">
+              <div class="col-sm-3" style="text-align:center">
+                  <label>
+                      Email
+                    </label> 
+              </div>
+               
+              <div class="col-md-8">
+                  <div class="input-group">
+                 
+                    <input type="text" formControlName="email" class="form-control"  />
+                  </div>
+                </div>
+                <div class="col-sm-1"></div>
+              </div>
+              <div class="form-group row">
+                  <div class="col-sm-3" style="text-align:center">
+              <label>
+                  Firstname
+                </label>
+         </div>
+              
+            <div class="col-md-8">
+             
+              <div class="input-group">
+             
+                <input type="text" formControlName="firstName" class="form-control" />
+              </div>
+            </div>
+          </div> 
+          
+          <div class="form-group row">
+              <div class="col-sm-3" style="text-align:center">
+                  <label>
+                      LastName
+                    </label>
+              </div>
+        
+            <div class="col-md-8">
+              <div class="input-group">
+                
+                <input type="text" formControlName="lastName" class="form-control" />
+              </div>
+            </div>
+            <div class="col-sm-1"></div>
+          </div> 
+          <div class="form-group row">
+              <div class="col-sm-3" style="text-align:center">
+              <label>
+                  Dob
+                </label>
+              </div>
+              <div class="col-md-8">
+                <div class="input-group">
+                 
+                  <input type="text" formControlName="dob" class="form-control" />
+                </div>
+              </div>
+              <div class="col-sm-1"></div>
+          
+            </div>
+              
+     <div class="row">
+        <div class="col-sm-4">
+
+        </div>
+  <div class="col-sm-8" 
+  style="padding:10px">
+            <button class="btn btn-success" style="color:white" >Update Profile </button>
+          </div>
+          
+        </div>
+          </form>
+    </div>
+<div  class="col-sm-2"></div>
+</div>
+  </div>
+  </div>
+  </div>
+  <div class="col-sm-2"></div>
+</div>
