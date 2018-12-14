@@ -4,8 +4,8 @@
 
 // development Db.js
 var mongoose = require('mongoose');
-var uri = "mongodb://54.71.18.74:27017/printgenie";//local
-// var uri = "mongodb://localhost:27017/printgenie"; // staging
+// var uri = "mongodb://54.71.18.74:27017/printgenie";//local
+ var uri = "mongodb://localhost:27017/printgenie"; // staging
 var options = {
     user: 'printgenie',
     pass: 'SGtf437Gtfr',

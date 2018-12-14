@@ -13,6 +13,8 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { AddcmsComponent } from './cms/addcms/addcms.component';
 import { EditcmsComponent } from './cms/editcms/editcms.component';
 import { CmsService } from './services/cms.service';
+import { UserService } from './services/user.service';
+import { ProductService } from './services/product.service';
 import { CommonModule } from '@angular/common';
 import { CategoryComponent } from './category/category.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -21,12 +23,41 @@ import { ConfirmDialogModule, DialogModule } from 'primeng/primeng';
 import { ViewCmsTemplateComponent } from './cms/view-cms-template/view-cms-template.component'
 import { ProfileEditComponent } from './profile/profile-edit/profile-edit.component'
 import { ProfileserviceService } from './services/profileservice.service';
+import { OrdersService } from './services/orders.service'
 import { ViewprofileComponent } from './profile/viewprofile/viewprofile.component'
 import { EditcategoryComponent } from './category/editcategory/editcategory.component';
 import { CategoryService } from './services/category.service';
 import { AddcategoryComponent } from './category/addcategory/addcategory.component'
 import { UsermanagementComponent } from './usermanagement/usermanagement.component';
 import { OrdersComponent } from './orders/orders.component'
+import { EdituserComponent } from './usermanagement/edituser/edituser.component';
+import { ProductComponent } from './product/product.component';
+import { AlwaysAuthGuard } from '../common/services/authguard.service';
+import { AddproductComponent } from './product/addproduct/addproduct.component';
+import { ManagecategoryComponent } from './product/managecategory/managecategory.component';
+import { ProductcategoryComponent } from './product/managecategory/productcategory/productcategory.component';
+import { EditordersComponent } from './orders/editorders/editorders.component'
+import { EditprocategoryComponent } from './product/managecategory/editprocategory/editprocategory.component';
+import {MultiSelectModule} from 'primeng/multiselect';
+import {ChipsModule} from 'primeng/chips';
+// import {TreeTableModule} from "ng-treetable";
+import {BrandmanagmentComponent} from './product/brandmanagment/brandmanagment.component'
+import {ColormanagementComponent} from './product/colormanagement/colormanagement.component' 
+import {SizemanagementComponent} from './product/sizemanagement/sizemanagement.component'
+import {ViewVarientProductComponent} from './product/view-varient-product/view-varient-product.component';
+import {FileUploadModule} from 'primeng/fileupload';
+import { InputFileConfig, InputFileModule } from 'ngx-input-file';
+import { EditproductComponent } from './product/editproduct/editproduct.component'
+import { AddsizeComponent } from './product/sizemanagement/addsize/addsize.component'
+import { ListsizeComponent } from './product/sizemanagement/listsize/listsize.component'
+import { EditsizeComponent } from './product/sizemanagement/editsize/editsize.component'
+import { PaymentmodeComponent } from './paymentmode/paymentmode.component';
+import {PaymentService} from './services/payment.service'
+import { TreeNode } from 'primeng/primeng';
+import { TreeTableModule } from 'primeng/primeng';
+// import { TreeModule } from 'ng2-tree';
+const config: InputFileConfig = {}
+
 @NgModule({
     imports:
         [
@@ -41,18 +72,32 @@ import { OrdersComponent } from './orders/orders.component'
             DialogModule,
             FormsModule,
             ConfirmDialogModule,
-
-
+            MultiSelectModule,
+            ChipsModule,
+            
+            TreeTableModule,
+            FileUploadModule,
+            InputFileModule.forRoot(config)
+        
         ],
-    providers: [CmsService, ConfirmationService, ProfileserviceService, CategoryService],
+    providers: [CmsService,
+        CategoryService, OrdersService,
+        ConfirmationService,
+        ProfileserviceService,
+        UserService,
+        ProductService,
+
+        AlwaysAuthGuard ,
+        PaymentService],
 
     declarations:
         [SuperAdminComponent,
-
+            EditproductComponent,
             CmsComponent,
             DashboardComponent,
             AddcmsComponent,
             EditcmsComponent,
+            EditprocategoryComponent,
             CategoryComponent,
             ViewCmsTemplateComponent,
             ProfileEditComponent,
@@ -60,7 +105,27 @@ import { OrdersComponent } from './orders/orders.component'
             EditcategoryComponent,
             AddcategoryComponent,
             UsermanagementComponent,
-            OrdersComponent
+            OrdersComponent,
+            SuperAdminComponent,
+            ProductcategoryComponent,
+            ManagecategoryComponent,
+            ProductComponent,
+            EdituserComponent,
+            AddproductComponent,
+            EditordersComponent,
+            BrandmanagmentComponent,
+            SizemanagementComponent,
+            ColormanagementComponent,
+            ViewVarientProductComponent,
+            AddsizeComponent,
+            ListsizeComponent,
+            EditsizeComponent,
+            PaymentmodeComponent
         ]
+
+
+
+
+
 })
 export class SuperAdminModule { }

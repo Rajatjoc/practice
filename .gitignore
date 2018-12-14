@@ -1,0 +1,7 @@
+.git
+.vscode
+backend/node_modules
+package-lock.json
+frontend/node_modules
+admin/node-modules
+backend/db.js

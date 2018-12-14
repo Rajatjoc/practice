@@ -1,0 +1,29 @@
+.card-header{
+    background-color:  #2f353a;
+    color:white
+}
+.btn-color {
+    color: #fff;
+    background-color: forestgreen;
+    border-color: forestgreen;
+}
+.ui-dialog-titlebar{
+    background-color:  #2f353a;
+    color: #fff;
+    
+} 
+
+// deep class css
+// :host/deep/ .ui-dialog-titlebar.ui-widget-header.ui-helper-clearfix.ui-corner-top.ng-tns-c5-0.ng-star-inserted {
+//     background-color:  #2f353a;
+//     color: #fff;
+//     border-color: #2f353a;
+// }
+:host/deep/  .ui-dialog .ui-dialog-titlebar{
+    background-color:  #2f353a;
+    color: #fff;
+    border-color: #2f353a;
+}
+:host/deep/   .ngx-pagination {
+    padding-left: 0px;
+} 

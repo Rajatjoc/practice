@@ -1,0 +1,93 @@
+<div class="row">
+<div class="col-sm-3"></div>
+<div class="col-sm-6">
+  <div class="card">
+    <div class="card-header">
+      <strong>Edit User</strong>
+  
+    </div>
+    <div class="card-body">
+        <form [formGroup]="editUserForm" (ngSubmit)= "updateUser()">
+      <div class="form-group">
+        <label for="company">First Name</label>
+        <input class="form-control" id="company" formControlName="firstName" placeholder="First Name" type="text">
+        <p style="color:red; font-size:12px" class="error" *ngIf="editUserForm.controls['firstName'].hasError('required')
+        && isSubmited">
+        First Name Required
+                </p>
+                <p style="color:red; font-size:12px" class="error" *ngIf="editUserForm.controls['firstName'].hasError('minlength')
+        && isSubmited">
+                  Min Length 3
+                </p>
+      </div>
+      <div class="form-group">
+        <label for="vat">Last Name</label>
+        <input class="form-control" id="vat" formControlName="lastName" placeholder="Last Name" type="text">
+        <p style="color:red; font-size:12px" class="error" *ngIf="editUserForm.controls['lastName'].hasError('required')
+        && isSubmited">
+        Last Name Required
+                </p>
+                <p style="color:red; font-size:12px" class="error" *ngIf="editUserForm.controls['lastName'].hasError('minlength')
+        && isSubmited">
+                  Min Length 3
+                </p>
+      </div>
+      <div class="form-group">
+        <label for="street">Email</label>
+        <input class="form-control" id="street" formControlName="email" placeholder="Email" type="text">
+        <p style="color:red; font-size:12px" class="error" *ngIf="editUserForm.controls['email'].hasError('required')
+        && isSubmited">
+       Email Required
+                </p>
+                <p style="color:red; font-size:12px" class="error" *ngIf="editUserForm.controls['email'].hasError('minlength')
+        && isSubmited">
+                  Min Length 3
+                </p> 
+      </div>
+      <!-- <div class="row">
+        <div class="form-group col-sm-8">
+          <label for="city">Status</label>
+          <input class="form-control" id="city" placeholder="Enter your city" type="text">
+        </div>
+        <div class="form-group col-sm-4">
+          <label for="postal-code">Postal Code</label>
+          <input class="form-control" id="postal-code" placeholder="Postal Code" type="text">
+        </div>
+      </div>  -->
+      <!-- <div class="form-group">
+        <label for="country">Country</label>
+        <input class="form-control" id="country" formControlName="status" placeholder="Country name" type="text">
+      </div> -->
+      <div class="form-group">
+          <label for="country">Status</label>
+      <select class="form-control"  formControlName="status">
+          <option value="">select status</option>
+          <option value="true">True</option>
+          <option value="false">False</option>
+          
+        </select>
+        <p style="color:red; font-size:12px" 
+        class="error" 
+        *ngIf="editUserForm.controls['status'].hasError('required')
+        && isSubmited">
+       Status Required
+                </p>
+         
+        </div>
+      <div class="form-group">
+          <Button  class="btn btn-color"> Update</Button>    
+          <button class="btn btn-back pull-right"
+          type="button" 
+          [routerLink]="['/auth/manageuser']"
+          style="background-color: #2f353a;color:white">
+          BACK
+         </button>  
+          </div>
+          
+       
+          </form>
+    </div>
+  </div>
+</div>
+<div class="col-sm-3"></div>
+</div>

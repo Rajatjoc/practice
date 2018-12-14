@@ -15,20 +15,20 @@ export class AddcmsComponent implements OnInit {
   @BlockUI() blockUI: NgBlockUI;
   
   public addCmsForm: FormGroup;
-  isSubmited : boolean =false;
+  isSubmited : boolean = false;
   categories : any;
-  subcategories: any = null;
+  subcategories: any = [];
   constructor(private formbuilder : FormBuilder,
   private CmsService : CmsService,private router : Router,private toastr : ToastrService,
- private _service : CategoryService) { 
+  private _service : CategoryService) { 
 
 
 
     this.addCmsForm =this.formbuilder.group({
-      page_title: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(12)]],
-      page_category: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(12)]],
+      page_title: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(60)]],
+      page_category: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(60)]],
       content: ['', [Validators.required]],
-      sub_category: ['', ],
+      sub_category: ['']
     })
   }
 
@@ -36,42 +36,55 @@ export class AddcmsComponent implements OnInit {
     this.getCategory();
   }
 getCategory(){
+  this.blockUI.start('Loading...'); // Start blocking 
   this._service.getAllCategory().subscribe(res=>{
     if(res.code == 200){
+      console.log(res)
       this.categories = res.data;
+      this.blockUI.stop();
     }
-    
+    this.blockUI.stop();
   })
 }
 getsubcategory(event){
   console.log('here',event.target.value)
+  this.blockUI.start('Loading...');
   this._service.getsubcategory(event.target.value).subscribe(res =>{
-    console.log( res.data.sub_category)
-    if(res.code){
-      if(res.data.sub_category.length > 0){
-        this.subcategories = res.data.sub_category
-        console.log( this.subcategories)
-      }
-      
+    console.log( res.data)
+    if(res.code == 200){
+        this.subcategories = res.data.sub_category;
+        if(res.data.sub_category.length == 0){
+          console.log("Clear validations")
+          this.addCmsForm.controls['sub_category'].clearValidators()
+          this.addCmsForm.controls['sub_category'].updateValueAndValidity();
+        }else{
+          console.log("Apply validations")
+          this.addCmsForm.controls['sub_category'].setValidators([Validators.required])
+          this.addCmsForm.controls['sub_category'].updateValueAndValidity();
+        }
+        this.blockUI.stop();
+      // this.blockUI.stop();
     }
   })
 
 }
   addCms()
   {
+    console.log(this.addCmsForm)
+    // this.isSubmited = true;
     if (this.addCmsForm.invalid) {
       this.isSubmited = true;
-      this.toastr.error("Invalid Credentials");
+  
       return;
     }
-    this.blockUI.start('Loading...'); // Start blocking
-    
+    this.blockUI.start('Loading...'); // Start blocking 
     this.CmsService.addCms(this.addCmsForm.value).subscribe(res=>{
-      this.blockUI.stop();
-      
+      this.blockUI.stop();      
       if(res.code === 200){
         this.toastr.success(res.message)
         this.router.navigate(['/auth/Cms'])
+      }else{
+        this.toastr.warning(res.message)
       }
     })
   }

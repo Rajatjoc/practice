@@ -1,72 +1,129 @@
-<div class="row">
+<!-- <div class="row">
   <div class="col-sm-2"></div>
   <div class="col-sm-8">
-<div class="card">
-  <div class="card-header">
-    <strong>Edit Category form</strong>
- 
+    <div class="card">
+      <div class="card-header">
+        <strong>Edit Category form</strong>
+      </div>
+      <div class="card-body">
+        <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle" width="425"></p-confirmDialog>
+        <form [formGroup]="editCategoryForm">
+          <div class="form-group ">
+            <div class="row">
+              <div class="col-sm-3">
+                <label style="text-align:center" for="Category Name">Category Name</label>
+              </div>
+              <div class="col-sm-8">
+                <input type="text" class="form-control" formControlName="category_name" name="category_name" placeholder="Category Name">
+                <p style="color:red; font-size:12px" class="error" *ngIf="editCategoryForm.controls['category_name'].hasError('required') && isSubmited">
+                  page_title required
+                </p>
+              </div>
+              <div class="col-sm-1"></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-8" style="padding:10px">
+              <button class="fa fa-plus btn btn-color" style="color:aliceblue" (click)="addnewtext()"> SubCategory</button>
+            </div>
+            <div class="col-sm-1"></div>
+          </div>
+
+          <div formArrayName="sub_category" *ngFor="let item of editCategoryForm.get('sub_category').controls; let i = index;" style="padding:5px">
+            <div [formGroupName]="i" class="row">
+              <div class="col-sm-3"></div>
+              <div class="col-sm-8">
+                <input class="form-control" formControlName="category_name" placeholder="sub category name">
+              </div>
+              <div class="col-sm-1">
+                <button *ngIf="editCategoryForm.controls.sub_category.controls.length > 0" (click)="deleteRow(i)" class="btn btn-link fa fa-trash"
+                  style="color:red"></button>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-8">
+            </div>
+            <div class="col-sm-4" style="padding:10px">
+              <button class="btn btn-color" type="submit" (click)="edit()" style=" text-transform: uppercase;
+        min-width: 160px;">
+                Update
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
-  <div class="card-body">
-<form [formGroup]= "editCategoryForm"  >
-<div class="form-group ">
-    <div class="row">
-        <div class="col-sm-3">
-    <label  style="text-align:center" for="Category Name" >Category Name</label>
-    </div>
-    <div class="col-sm-8">
-        <input type="text" class="form-control" formControlName = "category_name"  name="category_name" placeholder="Category Name">
-        <p  style="color:red; font-size:12px" class="error" *ngIf="editCategoryForm.controls['category_name'].hasError('required') && isSubmited">
-            page_title required
-          </p>
-    </div>
-    <div class="col-sm-1"></div>
-        
-        
-         
-          </div>
-         
-    </div>
-  
-  
+  <div class="col-sm-2"></div>
+</div>
 
-  
-  
-  <div class="row">
-      <div class="col-sm-3" ></div>
-      <div class="col-sm-8" style="padding:10px" >
-        <button class="fa fa-plus btn btn-success" style="color:aliceblue" (click) = "addnewtext()" >Sub Category</button></div>
-      <div class="col-sm-1"></div>
-    </div>
+ -->
 
-  <div formArrayName="sub_category" *ngFor="let item of editCategoryForm.get('sub_category').controls; let i = index;"style="padding:5px">
- <div [formGroupName]="i" class="row">
-   <div class="col-sm-3"></div>
-   <div class="col-sm-8">
-      <input class="form-control" formControlName="name" placeholder="sub category name">
-   </div>
-   <div class="col-sm-1">
-      <button *ngIf="editCategoryForm.controls.sub_category.controls.length > 0" (click)="deleteRow(i)" class="btn btn-link fa fa-trash"  style="color:red"></button>
-   </div>
+ <p-confirmDialog header="Confirmation" 
+ icon="pi pi-exclamation-triangle" 
+ width="425"></p-confirmDialog>
 
-      
+<div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-header">
+          <strong> Edit Category Form</strong>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="editCategoryForm">
+            <div class="form-group">
+              <label for="company">Category Name</label>
+              <input type="text" class="form-control" 
+              formControlName="category_name" 
+              name="category_name" 
+              placeholder="Category Name">
+              <p style="color:red; font-size:12px" class="error" *ngIf="editCategoryForm.controls['category_name'].hasError('required') && isSubmited">
+                Page Title Required
+              </p>
+            </div>
+  
+            <div class="form-group">
+              <button class=" btn btn-color " 
+              style="color:aliceblue;" 
+              (click)="addnewtext()">
+              <i class="fa fa-plus"></i> Sub Category</button>
+  
+            </div>
+  
+            <div  formArrayName="sub_category" *ngFor="let item of editCategoryForm.get('sub_category').controls; let i = index;" style="padding:5px">
+  
+              <div [formGroupName]="i" class="row">
+                <div class="col-sm-10">
+                  <input class="form-control" formControlName="category_name" 
+                  placeholder="Sub Category Name">
+                </div>
+                <div class="col-sm-2">
+  
+                  <button *ngIf="editCategoryForm.controls.sub_category.controls.length > 0" 
+                    (click)="deleteRow(i)" 
+                    class="btn btn-link fa fa-trash"
+                    style="color:red">
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div>
+              <button class="btn btn-color" type="submit" (click)="edit()">
+                Update
+              </button>
+              <button class="btn btn-back pull-right"
+              type="button" 
+              [routerLink]="['/auth/category']"
+              style="background-color: #2f353a;color:white">
+              BACK
+             </button> 
+            </div>
+          </form>
+        </div>
       </div>
-      </div>
-      
-
-  
-     <div class="row">
-          <div class="col-sm-8">
-  
-          </div>
-    <div class="col-sm-4" 
-    style="padding:10px">
-      <button class="btn btn-primary" type="submit" (click)="edit()" >Update</button>
     </div>
-  
-</div>
-</form>
-</div>
-</div>
-</div>
-<div class="col-sm-2"></div>
-</div>
+    <div class="col-sm-3"></div>
+  </div>

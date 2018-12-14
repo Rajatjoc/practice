@@ -6,19 +6,19 @@ const ordersSchema = new mongoose.Schema({
         type: String,
     },
     Product:{
-        type: mongoose.Schema.Types.ObjectId, 
-        ref:'products'
+        type:mongoose.Schema.Types.ObjectId, 
+        ref:'masterproducts'
     },
     PhoneNo :{
         type : String
     },
     BillingAddress: {
         type: String,
-        unique : true
+       
     },
     ShippingAddress: {
         type: String,
-        unique : true
+        
     },
     isDeleted:{
         type : Boolean,

@@ -13,6 +13,7 @@ import { ActivatedRoute,Router } from '@angular/router';
 export class AddcategoryComponent implements OnInit {
   @BlockUI() blockUI: NgBlockUI;
   addCategoryForm : FormGroup;
+  isSubmited : boolean = false
   constructor(private formbuilder : FormBuilder,private _service : CategoryService, private router : Router,private route : ActivatedRoute) { }
 
   ngOnInit() {
@@ -27,10 +28,10 @@ export class AddcategoryComponent implements OnInit {
     });
     }
     add(){
-      // if (this.addCategoryForm.invalid) {
-      //   this.isSubmited = true;
-      //   return;
-      // }
+      if (this.addCategoryForm.invalid) {
+        this.isSubmited = true;
+        return;
+      }
     console.log(this.addCategoryForm.value);
     this.blockUI.start('Loading...'); // Start blocking
     this._service.addCategory(this.addCategoryForm.value).subscribe(res=>{

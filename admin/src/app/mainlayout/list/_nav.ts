@@ -14,7 +14,7 @@ export const navItems = [
   // },
   {
     title: true,
-    name: 'Cms Managment'
+    name: 'Cms Management'
   },
   {
     name : "CMS",
@@ -24,52 +24,77 @@ export const navItems = [
 
   },
   {
-    name : "Category",
+    name : "CMS Category",
     url : "category",
     icon: 'icon-cursor'
 
   },
-  {
-    title: true,
-    name: 'Product Managment'
+  {title: true,
+      name: 'Product Management'
   },
+      
   {
-    name : " User Product",
-    url : "#",
-    icon: 'icon-puzzle'
+    name : "Manage Category",
+    url : "product/manageproduct",
+    icon: 'fa fa-navicon'
 
   },
   {
-    name : "Product ",
-    url : "#",
-    icon: 'icon-puzzle'
+    name : "Products",
+    url : "product/product",
+    icon: 'fa fa-product-hunt'
+
+  },
+  {
+name:"Manage Brands",
+url:"product/brandmanagement",
+icon:"fa fa-tags"
+  },
+  // {
+  //   name:"Manage Color",
+  //   url:"product/colormanagement",
+  //   icon:"fa fa-paint-brush"
+  // },
+  {
+    name:"Manage Size",
+    url:"product/listsize",
+    icon:"fa fa-arrows"
   },
   {
     title: true,
-    name: ' User Managment'
+    name: ' User Management'
   },{
-    name : "User Management",
+    name : "Users",
     url : "manageuser",
-    icon: 'icon-cursor'
-  },
-  {
-    name : " User ",
-    url : "#",
     icon: 'icon-user'
-
   },
+  
   {
     title: true,
-    name: ' Order Managment'
+    name: ' Order Management'
   },
   {
     name : " Orders ",
     url : "orders",
     icon: 'icon-basket-loaded'
     
-  }
+  },
+
+    // {
+    //   title: true,
+    //   name: 'Payment'
+    // },
+    // {
+    //   name : " Payment Modes ",
+    //   url : "paymentmode",
+    //   icon: 'icon-basket-loaded'
+      
+    // },
 
 
+
+
+  
   // {
   //   name : "Products view",
   //   url : "",

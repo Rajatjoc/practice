@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Validators, FormControl, FormGroup, FormArray, FormBuilder } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import { LoginService } from '../../../common/signup-signin/services/login.service';
 
 
 
@@ -18,7 +19,7 @@ export class ProfileEditComponent implements OnInit {
   public editProfileForm: FormGroup;
 
   constructor(private ProfileService:ProfileserviceService,private formbuilder : FormBuilder,
-    private router : Router,private route : ActivatedRoute,private toastr:ToastrService) { 
+    private router : Router,private route : ActivatedRoute,private toastr:ToastrService,private _service : LoginService) { 
     this.editProfileForm =this.formbuilder.group({
       email: ['', [Validators.required]],
       firstName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(12)]],
@@ -58,8 +59,19 @@ this.editprofile()
     this.blockUI.start('Loading...'); // Start blocking
     this.ProfileService.updateProfile(this.editProfileForm.value).subscribe(res=>{
       this.blockUI.stop();
-if (res.code==200){
-  this.toastr.success("Profile Updated Successfully")
+  if (res.code==200){
+    console.log(res.data,'----------')
+  var temp = JSON.parse(localStorage.getItem('userData'));
+  console.log(temp)
+  temp.firstName = res.data.userData.firstName;
+  temp.lastName = res.data.userData.lastName;
+
+  this.ProfileService.setProfileName(res.data.userData.firstName +' '+ res.data.userData.lastName );
+  this._service.setSession(temp);
+ 
+ 
+    
+  this.toastr.success("Profile updated successfully")
   this.router.navigate(['/auth/viewprofile'])
 }
     })

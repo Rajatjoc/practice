@@ -23,4 +23,13 @@ export class LoginService
     {  
        return this.httpClient.post(this.apiUrl +"users/reset-password",data);
     }
+
+  setSession(data) {
+      console.log(data, "here")
+    localStorage.userData = JSON.stringify(data);
+  }
+
+  readSession() {
+    return JSON.parse(localStorage.userData);
+  }
 }

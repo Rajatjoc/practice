@@ -11,4 +11,7 @@ var auth = require('../auth/auth');
  router.post('/getAllCategorycount' ,auth.isAuth , categoryCtrl.getAllCategorycount);
  router.get('/getallCategory' ,auth.isAuth , categoryCtrl.getAllCategory);
  router.get('/getsubcategory/:id' ,auth.isAuth , categoryCtrl.getsubcategory)
+    router.post('/editsubcategory',auth.isAuth,categoryCtrl.editsubcategory);
+
+ router.post('/addsubcategory',auth.isAuth,categoryCtrl.addsubcategory);
 module.exports = router;

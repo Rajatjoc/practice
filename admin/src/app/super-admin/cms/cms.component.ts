@@ -3,6 +3,7 @@ import { CmsService } from '../services/cms.service';
 import { Router } from '@angular/router';
 import { ConfirmationService } from 'primeng/components/common/confirmationservice';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import { ToastrService } from 'ngx-toastr';
 
 
 
@@ -19,12 +20,12 @@ export class CmsComponent implements OnInit {
   public p: any = 1;
   public totalItems: any = '';
   constructor(private _service: CmsService, private router: Router,
-    private confirmationService: ConfirmationService) { }
+    private confirmationService: ConfirmationService,private toastr : ToastrService) { }
 
   ngOnInit() {
     this.getcms();
   }
-  public serachtext()
+  public searchtext()
   {
    let spaceregex = /^[^\s]+(\s+[^\s]+)*$/;
    console.log(">>>>>>>>>>>>>",spaceregex.test(this.searchText))
@@ -53,7 +54,7 @@ export class CmsComponent implements OnInit {
   }
   getcms() {
 
-    console.log('res');
+    // console.log('res',res);
     this.blockUI.start('Loading...'); // Start blocking
     this._service.getAllCMS(this.searchText).subscribe(res => {
       console.log(res); 
@@ -78,9 +79,8 @@ export class CmsComponent implements OnInit {
         this._service.deleteCMS(id).subscribe(res=>{
           this.blockUI.stop();
         console.log(res.code);
-        if(res.code === 200){
-          this.pages = res.data;
-        }
+        this.getcms();
+        this.toastr.success(res.message)
       
       })
     },reject: () => {

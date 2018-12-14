@@ -1,0 +1,23 @@
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    color: honeydew;
+    background-color: forestgreen;
+    border-radius: 15px;
+}
+.btn-color{
+color: #fff;
+background-color: forestgreen;
+border-color: forestgreen;
+border-radius: 15px;
+}
+.card-header{
+    background-color:  #2f353a;
+    color:white
+}

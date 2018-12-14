@@ -58,21 +58,28 @@ export class LoginComponent {
     
       this.LoginService.login(loginData).subscribe(res=>{
         console.log(res);
-        this.blockUI.stop();
+     
         if(res.code === 200){
-
-          localStorage.token = res.data.token;
+      
+          // localStorage.token = res.data.token;
           // this.DataExchangeService.setData("mohan");
           // this.userName = res.data.userData.firstNam
-          localStorage.setItem("userName" ,JSON.stringify(res.data.userData));
-          // localStorage.setItem(token,res.data.token);
+          // localStorage.setItem("userName" ,JSON.stringify(res.data.userData));
+          localStorage.setItem('token',res.data.token);
+        this.LoginService.setSession(res.data.userData);
           this.toastr.success(res.message);
+          this.blockUI.stop();
           this.router.navigate(["auth"]);
         }else if(res.code ==201){
           this.toastr.warning(res.message);
+          this.blockUI.stop();
+          
         }else{
           this.toastr.warning(res.message);
+          this.blockUI.stop();
+          
         }
+         this.blockUI.stop();
       })
 
   }

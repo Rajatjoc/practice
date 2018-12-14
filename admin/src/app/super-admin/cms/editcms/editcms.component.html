@@ -1,5 +1,6 @@
 <div class="row">
-  <div class="col-sm-12">
+  <div class="col-sm-2"></div>
+  <div class="col-sm-8">
     <div class="card">
       <div class="card-header">
         <strong>Update CMS</strong> 
@@ -8,65 +9,121 @@
         <form [formGroup]= "editCmsForm" method="post" class="form-horizontal" (ngSubmit)= "updateCms()">
           <div class="form-group row">
             <div class="col-md-12">
-              <div class="input-group">
+                  <label for="street">Page Title</label>
+                <input type="text" formControlName = "page_title" id="input1-group1" 
+                name="input1-group1" class="form-control" placeholder="Page-title">
               
-                <input type="text" formControlName = "page_title" id="input1-group1" name="input1-group1" class="form-control" placeholder="Page-title">
-              </div>
             </div>
           </div>
+          <p style="color:red; font-size:12px" 
+          class="error" 
+          *ngIf="editCmsForm.controls['page_title'].hasError('required') && isSubmited">
+            Page Title required
+          </p>
+          <p style="color:red; font-size:12px" 
+          class="error" 
+          *ngIf="editCmsForm.controls['page_title'].hasError('minlength') && isSubmited">
+              Minimum length is 3.
+            </p>
+            <p style="color:red; font-size:12px" 
+            class="error" 
+            *ngIf="editCmsForm.controls['page_title'].hasError('maxlength') && isSubmited">
+              Maximum Length is 60.
+            </p>
           <div class="form-group row">
             <div class="col-md-12">
-              <div class="input-group">
-                <!-- <input type="" id="input2-group1" name="input2-group1" class="form-control" placeholder="Page-category"
-                  autocomplete="email"> -->
-                  <!-- <select formControlName = "page_category"  class="form-control" required>
-                      <option value="" >Select Category</option>
-                      <option value="product" >Product</option>
-                      <option value="resource" >Resource</option>
-               
-                    </select> -->
+              
+                  <label for="street">Category</label>
 
-                    <select formControlName = "page_category"  class="form-control" >
+                    <select formControlName = "page_category"  class="form-control" (change)="getsubcategory($event)">
                         <option value="">Select Category</option>
-                        <option *ngFor="let category of categories" value="{{category.category_name}}">{{category.category_name}}</option>
+                        <option *ngFor="let category of categories" value="{{category._id}}">{{category.category_name}}</option>
                      
                     </select>
+
+                
+     
+            </div>
+          </div>
+          <p style="color:red; font-size:12px" 
+          class="error" 
+          *ngIf="editCmsForm.controls['page_category'].hasError('required') && isSubmited">
+            Page Category required
+          </p>
+          <p style="color:red; font-size:12px" 
+          class="error" 
+          *ngIf="editCmsForm.controls['page_category'].hasError('minlength') && isSubmited">
+            Minimum Length is 3.
+          </p>
+          <p style="color:red; font-size:12px" 
+          class="error" 
+          *ngIf="editCmsForm.controls['page_category'].hasError('maxlength') && isSubmited">
+            Maximum Length is 60.
+          </p>
+          <div class="form-group row"  *ngIf="subcategories.length > 0" >
+              <div class="col-md-12">
+                <div class="form-group">
+                  <!-- <input type="" id="input2-group1" name="input2-group1" class="form-control" placeholder="Page-category"
+                    autocomplete="email"> -->
+                    <label for="street">Sub Category</label>
+
+                  <select formControlName="sub_category" class="form-control">
+                    <option value="">Select Sub Category</option>
+                   
+                    <option *ngFor="let subcat of subcategories" value="{{subcat._id}}">{{subcat.category_name}}</option>
+                  
+  
+                  </select>
+  
+                </div>
+              </div>
+              <p style="color:red; font-size:12px" class="error" *ngIf="editCmsForm.controls['sub_category'].hasError('required') && isSubmited">
+                Sub Category Required
+              </p>
+            </div>
+          <div class="form-group row">
+              <div class="col-md-12">
+                    <label for="status">Status</label>
+                    <select class="form-control"  formControlName="CmsStatus">
+                        <option value="">select status</option>
+                        <option value="Active">Active </option>
+                        <option value="InActive">In-Active</option>
+                        
+                      </select>
                 
               </div>
             </div>
-          </div><!--XZCZcSDFVSDAGGGGSGSDFGSDFGDFGSD-->
-          <!-- <div class="form-group row" *ngIf="subcategories || view" >
-              <div class="col-md-12">
-                <div class="input-group">
-                  <!-- <input type="" id="input2-group1" name="input2-group1" class="form-control" placeholder="Page-category"
-                    autocomplete="email"> -->
-                    
- 
-  
-                <!-- </div>
-              </div>
-              <p style="color:red; font-size:12px" class="error" *ngIf="editCmsForm.controls['sub_category'].hasError('required') && isSubmited">
-                sub_category required
-              </p>
-            </div> -->
           <div class="form-group row">
             <div class="col-md-12">
-              <div class="input-group">
-                <!-- <div class="input-group-prepend">
-                  <span class="input-group-text"><i class="fa fa-euro"></i></span>
-                </div> -->
-                <!-- <input type="text" id="input3-group1" name="input3-group1" class="form-control" placeholder="Content" [froalaEditor]> -->
+
+              <div class="form-group">
+                  <label for="street">CMS Editor</label>
                 <div formControlName = "content" name="content" [froalaEditor]></div>
               </div>
             </div>
           </div>
+          <p style="color:red; font-size:12px" class="error" *ngIf="editCmsForm.controls['content'].hasError('required') && isSubmited">
+              Content required
+             </p>
           <div class="card-footer">
-              <button type="submit" class="btn btn-sm btn-success"><i class="fa fa-dot-circle-o"></i> Update CMS</button>
+              <button type="submit" 
+              class="btn btn-back btn-success"
+              style="background-color: forestgreen;
+              border-color: forestgreen; color:white">
+                Update CMS</button>
               <!-- <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button> -->
+              <button class="btn btn-back pull-right"
+              type="button" 
+              [routerLink]="['/auth/Cms']"
+              style="background-color: #2f353a;color:white">
+              BACK
+             </button> 
             </div>
         </form>
       </div>
      
     </div>
   </div>
+  <div class="col-sm-2"></div>
+  
   <div>

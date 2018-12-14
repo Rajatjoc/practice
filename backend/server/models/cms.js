@@ -3,14 +3,14 @@ const Schema = mongoose.Schema;
 const cmsPagesSchema = new mongoose.Schema({
     page_title: {
         type: String,
-        unique : true
     },
     page_category: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId, 
+        ref:'categories'
     },
     sub_category: {
-        type: String,
-        unique : true
+        type: mongoose.Schema.Types.ObjectId, 
+        ref:'categories'
     },
     content:{
         type : String

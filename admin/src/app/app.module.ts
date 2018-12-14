@@ -9,7 +9,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { AppBreadcrumbModule} from '@coreui/angular';
 import { ToastrModule } from 'ngx-toastr';
-
+import {TreeTableModule} from "ng-treetable";
 import { AppRoutingModule } from './app.routing';
 // import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
@@ -28,7 +28,9 @@ import { BlockUIModule } from 'ng-block-ui';
     RouterModule,
     ToastrModule.forRoot(),
     BlockUIModule.forRoot(),
-    NgxPaginationModule 
+    TreeTableModule,
+    NgxPaginationModule ,
+ 
   ],
   declarations: [AppComponent, MessageResetPasswordComponent ],
   providers: [{

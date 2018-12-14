@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
       this.ProfileserviceService.getProfile().subscribe(res => {
         if(res['code'] == 200)
         {     
-        this.userName = res.data.firstName;
+        // this.userName = res.data.firstName;
         // localStorage.setItem("userName", this.userName);
         }
         else if(!res.status && res.code == 401 )
@@ -32,7 +32,7 @@ export class AppComponent implements OnInit {
        
 
       });
-      this.router.navigate(["auth"]);
+      // this.router.navigate(["auth"]);
     }
 
 

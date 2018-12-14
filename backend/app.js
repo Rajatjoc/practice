@@ -16,6 +16,9 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var cmsRouter = require('./routes/cms'); 
 var categoryRouter = require('./routes/category');
+var ordersRouter = require('./routes/orders')
+var productRouter = require('./routes/product');
+var paymentRouter = require('./routes/payment');
 var session = require('express-session');
 var cors = require('cors')
 
@@ -104,19 +107,24 @@ app.use(cookieParser());
 
 // app.use('/', indexSSRouter);
 app.use('/users',usersRouter);
+app.use('/products',productRouter);
 app.use('/cms',cmsRouter)
 app.use('/category',categoryRouter);
+app.use('/orders',ordersRouter)
+app.use('/payment',paymentRouter)
 // catch 404 and forward to error handler
 
 // publicDir = process.argv[2] || __dirname + '/public/dist',
 publicDir = __dirname + '/public/dist',
-// console.log(publicDir,"<<<-----------------<<<<<")
+console.log(publicDir,"<<<-----------------<<<<<")
 app.use(express.static(publicDir));
-app.use(express.static(path.join(__dirname, 'public/')));
-app.get('/', function (req, res) {
 
-  res.sendFile(path.join( "/index.html",{ root: publicDir }));
-});
+app.use(express.static(path.join(__dirname, 'public/')));
+
+// app.get('/', function (req, res) {
+
+//   res.sendFile(path.join( "/index.html",publicDir ));
+// });
 app.get("/*", function (req, res) {
   res.sendFile(path.join(publicDir, "/index.html"));
 });

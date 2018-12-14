@@ -4,6 +4,7 @@ import { CategoryService } from '../../services/category.service';
 import { ActivatedRoute,Router } from '@angular/router';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import {ToastrService} from 'ngx-toastr'
+import { ConfirmationService } from 'primeng/components/common/confirmationservice';
 @Component({
   selector: 'app-editcategory',
   templateUrl: './editcategory.component.html',
@@ -15,7 +16,8 @@ export class EditcategoryComponent implements OnInit {
   length : number = 0;
   public data :any = [];
     constructor(private formbuilder : FormBuilder,private _service : CategoryService,
-      private router : Router,private route : ActivatedRoute, private toastr:ToastrService) { }
+      private router : Router,private route : ActivatedRoute, private toastr:ToastrService, private confirmationService : ConfirmationService) { }
+
 
   ngOnInit() {
     let pageSlug =  this.route.snapshot.params.pageSlug;
@@ -31,12 +33,14 @@ export class EditcategoryComponent implements OnInit {
   
   createCategory(text){
     return this.formbuilder.group({
-    name : text.category_name
+      category_name : text.category_name,
+      _id : text._id
     });
     }
     createCategory1(){
       return this.formbuilder.group({
-      name : ''
+        category_name : '',
+        _id : null
       });
       }
   get sub_category(): FormArray { return this.editCategoryForm.get('sub_category') as FormArray; }
@@ -85,9 +89,20 @@ export class EditcategoryComponent implements OnInit {
     
   }
     deleteRow(index: number){
-      const control = <FormArray>this.editCategoryForm.controls['sub_category'];
-      // remove the chosen row
-      control.removeAt(index);
+      this.confirmationService.confirm({
+        
+              message: 'Are you sure that you want to perform this action?',
+              header: 'Confirmation',
+              icon: 'fa fa-question-circle',
+              accept: () => {
+                const control = <FormArray>this.editCategoryForm.controls['sub_category'];
+                // remove the chosen row
+                control.removeAt(index);
+            },reject: () => {
+             
+          }
+          });
+    
       }
 
       edit(){

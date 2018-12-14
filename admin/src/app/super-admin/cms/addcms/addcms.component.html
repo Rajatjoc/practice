@@ -8,41 +8,68 @@
         <form [formGroup]="addCmsForm" method="post" class="form-horizontal" (ngSubmit)="addCms()">
           <div class="form-group row">
             <div class="col-md-12">
-              <div class="input-group">
+              <div class="form-group">
 
-                <input type="text" formControlName="page_title" id="input1-group1" name="input1-group1" class="form-control" placeholder="Page-title" >
+                <input type="text"
+                 formControlName="page_title" 
+                 id="input1-group1"
+                  name="input1-group1" 
+                  class="form-control" 
+                  placeholder="Page Title" >
 
               </div>
             </div>
 
           </div>
-          <p style="color:red; font-size:12px" class="error" *ngIf="addCmsForm.controls['page_title'].hasError('required') && isSubmited">
-            page_title required
+          <p style="color:red; font-size:12px" 
+          class="error" 
+          *ngIf="addCmsForm.controls['page_title'].hasError('required') && isSubmited">
+            Page Title required
           </p>
-          <p style="color:red; font-size:12px" class="error" *ngIf="addCmsForm.controls['page_title'].hasError('minLength') && isSubmited">
-              page_title 3
+          <p style="color:red; font-size:12px" 
+          class="error" 
+          *ngIf="addCmsForm.controls['page_title'].hasError('minlength') && isSubmited">
+              
+            </p>
+            <p style="color:red; font-size:12px" 
+            class="error" 
+            *ngIf="addCmsForm.controls['page_title'].hasError('maxlength') && isSubmited">
+              Maximum Length is 60.
             </p>
           <div class="form-group row">
             <div class="col-md-12">
-              <div class="input-group">
+              <div class="form-group">
                 <!-- <input type="" id="input2-group1" name="input2-group1" class="form-control" placeholder="Page-category"
                   autocomplete="email"> -->
-                <select formControlName="page_category" class="form-control" (change) = "getsubcategory($event)">
+                <select formControlName="page_category"
+                 class="form-control"
+                 (change) = "getsubcategory($event)">
                   <option value="">Select Category</option>
-                  <option *ngFor="let category of categories" value="{{category.category_name}}">{{category.category_name}}</option>
-                
-
+                  <option *ngFor="let category of categories"
+                   value="{{category._id}}">{{category.category_name}}</option>
                 </select>
 
               </div>
             </div>
-            <p style="color:red; font-size:12px" class="error" *ngIf="addCmsForm.controls['page_category'].hasError('required') && isSubmited">
-              page_category required
+            <p style="color:red; font-size:12px" 
+            class="error" 
+            *ngIf="addCmsForm.controls['page_category'].hasError('required') && isSubmited">
+              Page Category required
+            </p>
+            <p style="color:red; font-size:12px" 
+            class="error" 
+            *ngIf="addCmsForm.controls['page_category'].hasError('minlength') && isSubmited">
+              Minimum Length is 3.
+            </p>
+            <p style="color:red; font-size:12px" 
+            class="error" 
+            *ngIf="addCmsForm.controls['page_category'].hasError('maxlength') && isSubmited">
+              Maximum Length is 60.
             </p>
           </div>
-          <div class="form-group row" *ngIf="subcategories" >
+          <div class="form-group row" *ngIf="subcategories.length > 0">
               <div class="col-md-12">
-                <div class="input-group">
+                <div class="form-group">
                   <!-- <input type="" id="input2-group1" name="input2-group1" class="form-control" placeholder="Page-category"
                     autocomplete="email"> -->
                     
@@ -50,20 +77,21 @@
                   <select formControlName="sub_category" class="form-control">
                     <option value="">Select Sub Category</option>
                    
-                    <option *ngFor="let subcat of subcategories" value="{{subcat.category_name}}">{{subcat.category_name}}</option>
+                    <option *ngFor="let subcat of subcategories" value="{{subcat._id}}">{{subcat.category_name}}</option>
                   
   
                   </select>
   
                 </div>
               </div>
-              <!-- <p style="color:red; font-size:12px" class="error" *ngIf="addCmsForm.controls['sub_category'].hasError('required') && isSubmited">
+              <p style="color:red; font-size:12px" class="error" 
+              *ngIf="addCmsForm.controls['sub_category'].hasError('required') && isSubmited">
                 sub_category required
-              </p> -->
+              </p>
             </div>
           <!-- <div class="form-group row"> -->
           <div class="col-md-12 form-group">
-            <div class="input-group">
+            <div class="form-group">
               <div class="row">
                 <div class="col-md-12">
               <!-- <div class="input-group-prepend">
@@ -78,11 +106,23 @@
             </div>
 
           </div>
+          <p style="color:red; font-size:12px" class="error" *ngIf="addCmsForm.controls['content'].hasError('required') && isSubmited">
+              Content required
+             </p>
           <!-- </div> -->
           <div class="card-footer">
-            <button type="submit" class="btn btn-sm btn-success">
-              <i class="fa fa-dot-circle-o"></i> Add CMS</button>
+            <button type="submit"
+             class="btn btn-back btn-success"
+             style="background-color: forestgreen;
+             border-color: forestgreen; color:white">
+              Add CMS</button>
             <!-- <button type="reset" class="btn btn-sm btn-danger"><i class="fa fa-ban"></i> Reset</button> -->
+            <button class="btn btn-back pull-right"
+            type="button" 
+            [routerLink]="['/auth/Cms']"
+            style="background-color: #2f353a;color:white">
+            BACK
+           </button>  
           </div>
         </form>
       </div>

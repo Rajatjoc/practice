@@ -7,16 +7,17 @@
           [(ngModel)]="searchText" 
           id="input2-group2"
            name="input2-group2" 
-           placeholder="Search using Page Title" 
+           placeholder="Search by Page Title" 
            type="text"
-           (ngModelChange)="serachtext()"
+           (ngModelChange)="searchtext()"
           >
          
         </div><i style="color: red" *ngIf="showSpaceErr">space not allowed!!!   </i>
     </div>
    
     <div class="col-sm-6">
-      <Button  class="btn btn-color pull-right" [routerLink]="['/auth/addCms']"><i class="fa fa-plus"></i> Add</Button>    
+      <Button  class="btn btn-color pull-right" [routerLink]="['/auth/addCms']">
+        <i class="fa fa-plus"></i> Add</Button>    
       </div>
 </div>
 
@@ -25,7 +26,7 @@
   <div class="col-12">
     <div class="card">
         <div class="card-header">
-            <strong>Cms List</strong>
+            <strong>CMS List</strong>
          
           </div>
       <div class="card-body">
@@ -49,15 +50,17 @@
               totalItems: totalItems };let i=index">
                 <td scope="row">{{i+1}}</td>
                <td>{{page.page_title}}</td>
-               <td>{{page.page_category}}</td>
+               <td>{{page.page_category.category_name}}</td>
                <td>
                 <span *ngIf="page.status == 'Active'" class="badge badge-success">Active</span>
                 <span *ngIf="page.status == 'InActive'" class="badge badge-danger">In-Active</span>
               </td>
                <td>
+                  <div>
                 <a class="fa fa-pencil " style="color:black; padding-right:10px" [routerLink] = "['/auth/editCms/',page._id]" ></a>
                 <button class="fa fa-trash btn btn-link" style="color:red" (click)="delete(page._id)" ></button>
                 <button class="fa fa-eye btn btn-link" style="color:black" [routerLink] = "['/auth/viewcmstemplate/',page._id]" ></button>
+             </div>
               </td>
               </tr> 
 

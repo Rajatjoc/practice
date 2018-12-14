@@ -2,8 +2,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const categorySchema = new mongoose.Schema({
     category_name: {
-        type: String
-       
+        type: String,
+        unique : true
+        
     },
     sub_category:[
         {

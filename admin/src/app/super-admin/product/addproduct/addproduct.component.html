@@ -1,0 +1,344 @@
+<div class="col-md-12">
+    <div class="card">
+        <div class="card-header">
+            <strong>Add Product</strong>
+        </div>
+        <div class="card-body">
+            <form class="form-horizontal" [formGroup]="productForm" enctype="multipart/form-data">
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="text-input">Product Name</label>
+                    <div class="col-md-9">
+                        <input class="form-control" id="text-input" type="text" name="text-input" formControlName="product_name" formArrayName="product_name"
+                            placeholder="Product Name">
+
+                        <p style="color:red; font-size:12px" class="error" *ngIf="productForm.controls['product_name'].hasError('required')
+     && isSubmited">
+                            Product Name Required
+                        </p>
+                        <p style="color:red; font-size:12px" class="error" *ngIf="productForm.controls['product_name'].hasError('minlength')
+     && isSubmited">
+                            Min Length 3
+                        </p>
+                        <!-- <span class="help-block">This is a help text</span> -->
+                    </div>
+
+                </div>
+
+                <!-- <div class="form-group row">
+        <label class="col-md-3 col-form-label" for="text-input">Product Name</label>
+        <div class="col-md-9">
+           
+        <!-- <span class="help-block">This is a help text</span> -->
+                <!-- </div>
+        </div> -->
+                <div color-picker ng-model="colorValueInline"></div>
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="textarea-input">Desciption</label>
+                    <div class="col-md-9">
+                        <textarea class="form-control" id="textarea-input" name="textarea-input" formControlName="description" formArrayName="description"
+                            rows="9" placeholder="Description"></textarea>
+                        <p style="color:red; font-size:12px" class="error" *ngIf="productForm.controls['description'].hasError('required')
+     && isSubmited">
+                            Description Required
+                        </p>
+                        <p style="color:red; font-size:12px" class="error" *ngIf="productForm.controls['description'].hasError('minlength')
+     && isSubmited">
+                            Min Length 3
+                        </p>
+                    </div>
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="select1">Brand</label>
+                    <div class="col-md-9">
+                        <select class="form-control" 
+                        id="select1" 
+                        name="select1" 
+                        formArrayName="brand" 
+                        formControlName="brand">
+                            <option value="">Select Brand</option>
+                            <option *ngFor="let brand of brands"
+                             value="{{brand._id}}">{{brand.title}}</option>
+
+                        </select>
+                        <p style="color:red; font-size:12px" 
+                        class="error" 
+                        *ngIf="productForm.controls['brand'].hasError('required')
+     && isSubmited">
+                            Brand Required
+                        </p>
+                        <p style="color:red; font-size:12px" 
+                        class="error" 
+                        *ngIf="productForm.controls['brand'].hasError('minlength')
+     && isSubmited">
+                            Min Length 3
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="select1">Product For</label>
+                    <div class="col-md-3">
+                        <select class="form-control" 
+                        formControlName="category" 
+                        (change)="getsubcategory($event)">
+                            <option value="">Please Select Category</option>
+                            <option *ngFor="let category of categories" value="{{category._id}}">{{category.title}}</option>
+
+                        </select>
+                        <p style="color:red; font-size:12px" 
+                        class="error" 
+                        *ngIf="productForm.controls['category'].hasError('required')
+             && isSubmited">
+                            Product For Required
+                        </p>
+                        <p style="color:red; font-size:12px" 
+                        class="error" 
+                        *ngIf="productForm.controls['category'].hasError('minlength')
+             && isSubmited">
+                            Min Length 3
+                        </p>
+                    </div>
+                    <label class="col-md-3 col-form-label" for="select1">Product Type</label>
+                    <div class="col-md-3">
+                        <select class="form-control"
+                         id="select1"
+                          formControlName="sub_category" 
+                          (change)="getDeepsubcategory($event)">
+                            <option value="">Please Select Sub Category</option>
+                            <option *ngFor="let subcate of subcategories" value="{{subcate._id}}">{{subcate.title}}</option>
+
+                        </select>
+                        <p style="color:red; font-size:12px" 
+                        class="error" 
+                        *ngIf="productForm.controls['sub_category'].hasError('required')
+                             && isSubmited">
+                            Product Type Required
+                        </p>
+                        <p style="color:red; font-size:12px" 
+                        class="error" 
+                        *ngIf="productForm.controls['sub_category'].hasError('minlength')
+                             && isSubmited">
+                            Min Length 3
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label" 
+                    for="select1">Product's Sub category</label>
+                    <div class="col-md-9">
+                        <select class="form-control" 
+                        id="select1" 
+                        name="select1" 
+                        formArrayName="deepsub_category" 
+                        formControlName="deepsub_category">
+                            <option value="">Select sub category</option>
+                            <option *ngFor="let subcate of deepsubcategories" value="{{subcate._id}}">{{subcate.title}}</option>
+
+                        </select>
+                        <p style="color:red; font-size:12px" class="error" *ngIf="productForm.controls['deepsub_category'].hasError('required')
+                     && isSubmited">
+                            Product's Sub category Required
+                        </p>
+                        <p style="color:red; font-size:12px" class="error" *ngIf="productForm.controls['deepsub_category'].hasError('minlength')
+                     && isSubmited">
+                            Min Length 3
+                        </p>
+                    </div>
+                </div>
+                <!--   
+    <div class=" form-group row">
+        <label class="col-md-3 col-form-label" for="file-multiple-input">Multiple File input</label>
+         <div class="col-md-9">
+             <input type="file" class="form-control" id="images" name="images[]" formArrayName="images"  (change)="preview_images($event);" multiple/> -->
+                <!-- <div class="myclass" *ngFor="let image of imgArr">
+                 <!-- <img class="img-responsive" src="{{image.name}}"/> -->
+                <!-- </div> -->
+                <!-- </div> -->
+
+                <!-- <div class="col-md-6">
+             <input type="submit" class="btn btn-primary" name='submit_image' value="Upload Multiple Image"/>
+         </div> -->
+
+                <!-- </div> -->
+                <div class="form-group row">
+                    <label class="col-md-3 col-form-label" for="select1">Varient</label>
+
+
+
+                    <div class="col-md-9">
+                        <Button class="btn btn-color " (click)="addtext()">
+                            <i class="fa fa-plus"></i> Add Varient</Button>
+                    </div>
+                </div>
+                <!-- <div class="form-group row" > -->
+
+                <div formArrayName="varient" 
+                *ngFor="let item of productForm.get('varient').controls; let i = index;"
+                 style="padding:5px">
+                    <div [formGroupName]="i" class="row">
+                        <div class="col-sm-3"></div>
+
+                        <div class="col-md-3">
+                            <label>Country</label>
+                            <select class="form-control" formControlName="country">
+                                <option value="">Please Select Country</option>                          
+                                <option *ngFor="let country of countries" 
+                                value="{{country._id}}">{{country.name}}</option>
+                            </select>
+                            <!-- <p style="color:red; font-size:12px" 
+                            class="error" 
+                            *ngIf="productForm.controls['country'].hasError('required')
+                            && isSubmited">
+                            Country Required
+                               </p> -->
+                        
+                        </div>
+                     
+                        <div class="col-md-2">
+                            <label>Size</label>
+                            <p-multiSelect 
+                            [panelStyle]="{minWidth:'10em'}"
+                             [options]="sizes" 
+                             formControlName="size" 
+                             optionLabel="sizeName">
+                            </p-multiSelect>
+                            <!-- <p style="color:red; font-size:12px" 
+                            class="error" 
+                            *ngIf="productForm.controls['size'].hasError('required')
+                            && isSubmited">
+                            Size Required
+                               </p> -->
+                          
+
+                        </div>
+                      
+
+                        <div class="col-sm-2">
+
+                            <label>Colors</label>
+                            <p-multiSelect
+                             [panelStyle]="{minWidth:'10em'}" 
+                             [options]="colors" 
+                             formControlName="color"
+                              optionLabel="name">
+                            </p-multiSelect>
+                            <!-- <p style="color:red; font-size:12px" 
+                            class="error" 
+                            *ngIf="productForm.controls['color'].hasError('required')
+                            && isSubmited">
+                            Color Required
+                       </p> -->
+
+                        </div>
+                       
+                        <div class="col-sm-2">
+                            <label>Delete </label>
+                            <br>
+                            <button (click)="deleteRow(i)" 
+                            class="btn btn-link fa fa-trash" 
+                            style="color:red ;"></button>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- <div [formGroupName]="i" class="row" formArrayName="varient" *ngFor="let item of productForm.controls.varient.controls; let i = index;">
+                    <label class="col-md-3 col-form-label" for="select1"></label>
+                <div class="col-md-3">
+                    <select class="form-control"  formControlName="country">
+                    <option value="">Please select country</option>
+                    <!-- <option *ngFor="let country of countries" value="{{country._id}}">{{country.name}}</option> -->
+
+
+                <!-- </select>
+                </div>
+                <div class="col-md-3">
+                    <select class="form-control"  formControlName="size">
+                    <option value="">Please Brand</option>
+                    <option value="1">Option #1</option>
+                    <option value="2">Option #2</option>
+                    <option value="3">Option #3</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <select class="form-control"  formControlName="color">
+                    <option value="">Please Brand</option>
+                    <option value="1">Option #1</option>
+                    <option value="2">Option #2</option>
+                    <option value="3">Option #3</option>
+                    </select>
+                </div>
+                
+            </div> -->
+
+                <!-- </div> -->
+                <!-- <div class="form-group row">
+    <label class="col-md-3 col-form-label">Checkboxes</label>
+    <div class="col-md-9 col-form-label">
+    <div class="form-check checkbox">
+    <input class="form-check-input" id="check1" type="checkbox" value="">
+    <label class="form-check-label" for="check1">Option 1</label>
+    </div>
+    <div class="form-check checkbox">
+    <input class="form-check-input" id="check2" type="checkbox" value="">
+    <label class="form-check-label" for="check2">Option 2</label>
+    </div>
+    <div class="form-check checkbox">
+    <input class="form-check-input" id="check3" type="checkbox" value="">
+    <label class="form-check-label" for="check3">Option 3</label>
+    </div>
+    </div>
+    </div>
+    <div class="form-group row">
+    <label class="col-md-3 col-form-label">Inline Checkboxes</label>
+    <div class="col-md-9 col-form-label">
+    <div class="form-check form-check-inline mr-1">
+    <input class="form-check-input" id="inline-checkbox1" type="checkbox" value="check1">
+    <label class="form-check-label" for="inline-checkbox1">One</label>
+    </div>
+    <div class="form-check form-check-inline mr-1">
+    <input class="form-check-input" id="inline-checkbox2" type="checkbox" value="check2">
+    <label class="form-check-label" for="inline-checkbox2">Two</label>
+    </div>
+    <div class="form-check form-check-inline mr-1">
+    <input class="form-check-input" id="inline-checkbox3" type="checkbox" value="check3">
+    <label class="form-check-label" for="inline-checkbox3">Three</label>
+    </div>
+    </div>
+    </div> -->
+                <!-- <div class="form-group row">
+    <label class="col-md-3 col-form-label" for="file-input">File input</label>
+    <div class="col-md-9">
+    <input id="file-input" type="file" name="file-input">
+    </div>
+    </div> -->
+                <!-- <div class="form-group row">
+    <label class="col-md-3 col-form-label" for="file-multiple-input">Multiple File input</label>
+    <div class="col-md-9">
+    <input id="file-multiple-input" type="file" name="file-multiple-input" multiple="">
+    </div>
+    </div> -->
+            </form>
+        </div>
+        <div class="card-footer">
+            <button class="btn btn-back btn-primary" 
+            type="submit" 
+            (click)="setproduct()" 
+            style="background-color: forestgreen;
+            border-color: forestgreen; color:white">
+                Submit
+            </button>
+
+            <button 
+            class="btn btn-back pull-right" 
+            type="button" 
+            [routerLink]="['/auth/product/product']" 
+            style="background-color: #2f353a;color:white">
+                BACK
+            </button>
+        </div>
+    </div>
+
+</div>

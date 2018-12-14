@@ -1,0 +1,111 @@
+
+
+
+<p-dialog [(visible)]="display" [width]="600" [responsive]="true" 
+[modal]="true" [dismissableMask]="true" [autoZIndex]>
+  <p-header>
+    <strong style=" font-size: 20px">Add Payment Mode </strong>
+  </p-header>
+  <form [formGroup]="paymentForm" (ngSubmit)="addPayment()">
+    <div class="form-group">
+      <div class="row">
+        <div class="col-sm-12">
+          <label style=" font-size: 18px">Payment Mode </label>
+          <input class="form-control" 
+           formControlName="paymentmode" 
+           placeholder="Enter Payment Mode" 
+           type="text">
+        </div>
+      </div>
+      <p style="color:red; font-size:12px" 
+        class="error" 
+        *ngIf="brandForm.controls['paymentmode'].hasError('required')
+        && isSubmited">
+        Payment Mode Required
+      </p>
+      <p style="color:red; font-size:12px" 
+        class="error" 
+        *ngIf="brandForm.controls['paymentmode'].hasError('minlength')
+        && isSubmited">
+        Min Length 3
+      </p>
+    </div>
+    <Button type="submit" class="btn btn-color">
+      <i class="fa fa-plus"></i>Add</Button>
+  </form>
+</p-dialog>
+
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle" width="425" ></p-confirmDialog>
+
+<div class="row" style="padding-bottom:10px">
+  <div class="col-sm-6">
+    <div class="input-group">
+      <span class="input-group-text">
+        <i class="fa fa-search"></i>
+      </span>
+      <input class="form-control" style="border:1px solid lightgray" [(ngModel)]="searchText" id="input2-group2" name="input2-group2"
+        placeholder="Search using payment mode" type="text" (ngModelChange)="searchtext()">
+
+    </div>
+    <i style="color: red" *ngIf="showSpaceErr">space not allowed!!! </i>
+  </div>
+  
+  <div class="col-sm-6">
+      <Button  class="btn btn-color pull-right"><i class="fa fa-plus"> </i>Payment Mode</Button>    
+  </div> 
+</div>
+
+
+<div class="row ">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <strong>Payment Modes</strong>
+
+      </div>
+      <div class="card-body">
+        <!-- <h3 class="card-title">CMS Pages</h3>
+            <h6 class="card-sub1title">This is basic cms page listing</h6> -->
+        <div class="tableLayout">
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+                <th scope="col">S.No</th>
+                <th scope="col">Payment Mode</th>
+                <th scope="col">Status </th>
+                <th scope="col">Action</th>
+                
+              </tr>
+            </thead>
+            <tbody>
+
+              <tr *ngFor="let payment of paymentmodes | paginate: { 
+            itemsPerPage: 5,
+            currentPage: p,
+            totalItems: totalItems };let i=index">
+                <td scope="row">{{i+1}}</td>
+                <td>{{payment.paymentmode}}</td>
+               
+
+                <td>
+                  <span *ngIf="payment.status == true" class="badge badge-success">Active</span>
+                  <span *ngIf="payment.status == false" class="badge badge-danger">In-Active</span>
+                </td>
+                <td>
+                  <a class="fa fa-pencil " style="color:black; padding-right:10px" [routerLink]="['/auth/orders/editorders/',Orders]"></a>
+                  <button class="fa fa-trash btn btn-link" style="color:red" (click)="delete(Orders)"></button>
+
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+          <pagination-controls (pageChange)="pageChanged($event)" maxSize="9" directionLinks="true" autoHide="true" responsive="true"
+            previousLabel="Previous" nextLabel="Next">
+
+          </pagination-controls>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

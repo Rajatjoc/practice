@@ -1,0 +1,13 @@
+.btn-color {
+    color: #fff;
+    background-color: forestgreen;
+    border-color: forestgreen;
+}
+.card-header{
+    background-color:  #2f353a;
+    color:white
+}
+:host/deep/   .ngx-pagination {
+    padding-left: 0px;
+} 
+table td {overflow:hidden ; max-width:300px; word-wrap:break-word;}

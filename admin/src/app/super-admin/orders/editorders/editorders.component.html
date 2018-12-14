@@ -1,0 +1,124 @@
+<div class="row">
+    <div class="col-sm-3"></div>
+    <div class="col-sm-6">
+      <div class="card">
+        <div class="card-header">
+          <strong>Edit Orders</strong>
+      
+        </div>
+        <div class="card-body">
+            <form [formGroup]="editOrdersForm" (ngSubmit)= "updateOrders()">
+          <div class="form-group">
+            <label for="company">Customer Name</label>
+            <input class="form-control" id="company" formControlName="CustomerName" 
+            placeholder="CustomerName" type="text">
+            <p style="color:red; font-size:12px" class="error" 
+            *ngIf="editOrdersForm.controls['CustomerName'].hasError('required')
+            && isSubmited">
+            Customer Name Required
+                    </p>
+                    <p style="color:red; font-size:12px" class="error" 
+                    *ngIf="editOrdersForm.controls['CustomerName'].hasError('minlength')
+            && isSubmited">
+                      Min Length 3
+                    </p> 
+          </div>
+
+          <div class="form-group">
+            <label for="street">Phone No</label>
+            <input class="form-control" id="street" formControlName="PhoneNo"
+             placeholder="Phone No" type="text">
+             <p style="color:red; font-size:12px" class="error" 
+             *ngIf="editOrdersForm.controls['PhoneNo'].hasError('required')
+             && isSubmited">
+             PhoneNo Required
+                     </p>
+                     <p style="color:red; font-size:12px" 
+                     class="error"
+                      *ngIf="editOrdersForm.controls['PhoneNo'].hasError('minlength')
+             && isSubmited">
+                       Min Length 3
+                     </p> 
+           </div>
+           <div class="form-group">
+              <label for="street">Billing Address</label>
+              <input class="form-control" id="street" formControlName="BillingAddress" 
+              placeholder="BillingAddress" type="text">
+              <p style="color:red; font-size:12px" class="error" 
+              *ngIf="editOrdersForm.controls['BillingAddress'].hasError('required')
+              && isSubmited">
+             Email Required
+                      </p>
+                      <p style="color:red; font-size:12px" class="error" 
+                      *ngIf="editOrdersForm.controls['BillingAddress'].hasError('minlength')
+              && isSubmited">
+                        Min Length 3
+                      </p> 
+             </div>
+             <div class="form-group">
+                <label for="street">Shipping Address</label>
+                <input class="form-control" id="street" formControlName="ShippingAddress"
+                 placeholder="ShippingAddress" type="text">
+                 <p style="color:red; font-size:12px" class="error"
+                  *ngIf="editOrdersForm.controls['ShippingAddress'].hasError('required')
+                 && isSubmited">
+                Email Required
+                         </p>
+                         <p style="color:red; font-size:12px" 
+                         class="error" 
+                         *ngIf="editOrdersForm.controls['ShippingAddress'].hasError('minlength')
+                 && isSubmited">
+                           Min Length 3
+                         </p> 
+               </div>
+               
+          <!-- <div class="row">
+            <div class="form-group col-sm-8">
+              <label for="city">Status</label>
+              <input class="form-control" id="city" placeholder="Enter your city" type="text">
+            </div>
+            <div class="form-group col-sm-4">
+              <label for="postal-code">Postal Code</label>
+              <input class="form-control" id="postal-code" placeholder="Postal Code" type="text">
+            </div>
+          </div>  -->
+          <!-- <div class="form-group">
+            <label for="country">Country</label>
+            <input class="form-control" id="country" formControlName="status" placeholder="Country name" type="text">
+          </div> -->
+          <div class="form-group">
+              <label for="country">Status</label>
+          <select class="form-control"  formControlName="OrderStatus">
+              <option value="">select status</option>
+              <option value="Active">Active </option>
+              <option value="InActive">InActive</option>
+              
+            </select>
+            <p style="color:red; font-size:12px" class="error" 
+            *ngIf="editOrdersForm.controls['OrderStatus'].hasError('required')
+            && isSubmited">
+           Email Required
+                    </p>
+                    <p style="color:red; font-size:12px"
+                     class="error" 
+                     *ngIf="editOrdersForm.controls['OrderStatus'].hasError('minlength')
+            && isSubmited">
+                      Min Length 3
+                    </p> 
+            </div>
+          <div class="form-group">
+              <Button  class="btn btn-color"> Update</Button> 
+              <button class="btn btn-back pull-right"
+              type="button" 
+              [routerLink]="['/auth/orders']"
+              style="background-color: #2f353a;color:white">
+              BACK
+             </button>         
+              </div>
+              
+              </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-3"></div>
+    </div>

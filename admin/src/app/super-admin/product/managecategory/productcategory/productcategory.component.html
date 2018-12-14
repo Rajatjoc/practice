@@ -1,0 +1,106 @@
+<div class="row">
+  <div class="col-sm-3"></div>
+  <div class="col-sm-6">
+    <div class="card">
+      <form class="form-horizontal" [formGroup]="categoryForm">
+        <div class="card-header">
+          <strong>Product Category</strong>
+        </div>
+        <div class="card-body">
+
+          <div class="row">
+            <div class="col-sm-9">
+              <div class="form-group">
+                <label for="name">Name</label>
+                <input class="form-control" id="name" type="text" formControlName="category" placeholder=" Product Category Name">
+
+              </div>
+              <p style="color:red; font-size:12px" class="error" *ngIf="form-horizontal.controls['category'].hasError('required')
+       && isSubmited">
+                Sub Category Name Required
+              </p>
+              <p style="color:red; font-size:12px" class="error" *ngIf="form-horizontal.controls['category'].hasError('minlength')
+       && isSubmited">
+                Min Length 3
+              </p>
+            </div>
+            <div class="col-sm-3"></div>
+          </div>
+          <div style="padding:5px">
+
+
+            <button class=" btn btn-color" (click)="addtext()">
+              <i class="fa fa-plus"></i> Sub Category</button>
+
+
+          </div>
+
+          <div formArrayName="sub_category" *ngFor="let item of categoryForm.get('sub_category').controls; let i = index;" style="padding:5px">
+
+            <div [formGroupName]="i" class="row">
+
+              <div class="col-sm-9">
+
+                <input class="form-control" formControlName="name" placeholder="Sub Category Name">
+
+              </div>
+              <p style="color:red; font-size:12px" class="error" *ngIf="sub_category.controls['name'].hasError('required')
+         && isSubmited">
+                Sub Category Name Required
+              </p>
+              <p style="color:red; font-size:12px" class="error" *ngIf="sub_category.controls['name'].hasError('minlength')
+         && isSubmited">
+                Min Length 3
+              </p>
+              <div class="col-sm-3">
+                <button (click)="deleteRow(i)" style="color:red" class="btn btn-link fa fa-trash"></button>
+              </div>
+              <div class="col-sm-9">
+
+
+              </div>
+              <div class="col-sm-3">
+                <button (click)="addNewProject(item.controls.deep_sub_category)"
+                 class="btn btn-color ">
+                  <i class="fa fa-plus"></i>
+                  Deep Categ
+                </button>
+              </div>
+              <div class="col-sm-2"></div>
+              <div class="col-sm-9" style="padding:5px">
+                <div formArrayName="deep_sub_category">
+                  <div *ngFor="let project of item.get('deep_sub_category').controls; let j=index">
+
+                    <div [formGroupName]="j">
+                      <span>
+                        <input formControlName="deep_sub_category" placeholder="Deep Sub Category" class="form-control" />
+                        <button (click)="deleteProject(item.controls.deep_sub_category, j)" class="btn btn-link  fa fa-trash pull-right" style="color:red">
+                        </button>
+                      </span>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="col-sm-1"></div>
+              </div>
+            </div>
+          </div>
+
+
+
+          <div style="padding:10px;">
+            <button class="btn btn-color" type="submit" (click)="add()">ADD</button>
+            <button class="btn btn-back pull-right" type="button" 
+            [routerLink]="['/auth/product/manageproduct']"
+             style="background-color: #2f353a;color:white">
+              BACK
+            </button>
+          </div>
+
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="col-sm-3"></div>
+
+</div>

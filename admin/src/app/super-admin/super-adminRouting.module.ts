@@ -13,22 +13,40 @@ import { EditcategoryComponent } from './category/editcategory/editcategory.comp
 import { AddcategoryComponent } from './category/addcategory/addcategory.component';
 import { UsermanagementComponent } from './usermanagement/usermanagement.component';
 import { OrdersComponent } from './orders/orders.component';
+import { EdituserComponent } from './usermanagement/edituser/edituser.component';
+import { ProductComponent } from './product/product.component';
+import { AlwaysAuthGuard } from '../common/services/authguard.service';
+import { AddproductComponent } from './product/addproduct/addproduct.component';
+import { ManagecategoryComponent } from './product/managecategory/managecategory.component';
+import { ProductcategoryComponent } from './product/managecategory/productcategory/productcategory.component';
+import { EditordersComponent } from './orders/editorders/editorders.component'
+import { EditprocategoryComponent } from './product/managecategory/editprocategory/editprocategory.component';
+import { BrandmanagmentComponent } from './product/brandmanagment/brandmanagment.component';
+import { ColormanagementComponent } from './product/colormanagement/colormanagement.component';
+import { SizemanagementComponent } from './product/sizemanagement/sizemanagement.component';
+import { ViewVarientProductComponent } from './product/view-varient-product/view-varient-product.component';
+import { EditproductComponent } from './product/editproduct/editproduct.component';
+import { AddsizeComponent } from './product/sizemanagement/addsize/addsize.component';
+import { ListsizeComponent } from './product/sizemanagement/listsize/listsize.component';
+import { EditsizeComponent } from './product/sizemanagement/editsize/editsize.component';
+import { PaymentmodeComponent } from './paymentmode/paymentmode.component';
+
 export const routes: Routes = [
     {
-        path : "" ,component : LandingComponent,
+        path : "" ,component : LandingComponent,canActivate:[AlwaysAuthGuard],
         data: {
             title: ''
           },
         children :
-        [   {path  : "",redirectTo :"dashboard"  } ,
+        [   {path  : "",redirectTo :"dashboard" ,pathMatch : "full" } ,
             {path : "Cms" ,component : CmsComponent, data: {
-                title: 'Cms'
+                title: 'CMS'
               },},  {path : "addCms" ,component : AddcmsComponent, data: {
-                title: 'addCms'
+                title: 'Add CMS'
               },
             },
             {path : "editCms/:pageSlug" ,component : EditcmsComponent, data: {
-                title: 'Edit Cms'
+                title: 'Edit CMS'
               },
             },
             {
@@ -44,7 +62,7 @@ export const routes: Routes = [
             },
             {
                 path:"viewcmstemplate/:pageSlug", component:ViewCmsTemplateComponent, data:{
-                    title:"View"
+                    title:"CMS View"
                 }
             },
             {
@@ -75,7 +93,78 @@ export const routes: Routes = [
                 {
                    title:'Orders'
                 }
-            }            
+                       
+            }, 
+            { 
+                path:"orders/editorders/:pageSlug",component:EditordersComponent,data:
+                {
+                   title:'Edit Orders'
+                }
+                       
+            }, 
+             {path : "edituser/:pageSlug" ,component :EdituserComponent , data: {
+                title: 'Edit User'
+              },
+            }  , 
+            {path : "product/product" ,component :ProductComponent , data: {
+                title: 'Product'
+              },
+            }  ,
+            {path : "product/addproduct" ,component :AddproductComponent , data: {
+                title: 'Add Product'
+              },
+            },
+            {path : "product/manageproduct" ,component :ManagecategoryComponent , data: {
+                title: 'Manage Categories'
+              },
+            } ,
+            {path : "product/productcateory" ,component : ProductcategoryComponent , data: {
+                title: 'Add Categories'
+              },
+            },
+            {path : "product/varient/:id" ,component : ViewVarientProductComponent , data: {
+                title: 'View Varient '
+              },
+            },
+            {path : "product/editcategory/:pageSlug" ,component : EditprocategoryComponent , data: {
+                title: 'Edit Categories'
+              },
+            }   ,
+            {
+                path: "product/brandmanagement" , component: BrandmanagmentComponent , data:{
+                    title:"Brand Management"
+                }
+            } ,
+            {
+                path: "product/colormanagement" , component: ColormanagementComponent , data:{
+                    title:"Color Management"
+                }
+            }       ,
+            {
+                path: "product/sizemanagement" , component: SizemanagementComponent , data:{
+                    title:"Size Management"
+                }
+            }    ,
+            {path : "product/editproduct/:pageSlug" ,component : EditproductComponent , data: {
+                title: 'Edit Categories'
+              },
+            }     ,
+            {path : "product/addsize" ,component : AddsizeComponent , data: {
+                title: 'Add Size'
+              },
+            },   
+            {path : "product/listsize" ,component : ListsizeComponent , data: {
+                title: ' Size List'
+              },
+            }  ,
+            {path : "product/editsize/:pageSlug" ,component : EditsizeComponent , data: {
+                title: 'Edit Size '
+              },
+            },  
+            {path : "paymentmode" ,component : PaymentmodeComponent , data: {
+                title: 'Payment Modes '
+              },
+            }              
         ]
     }
 ]

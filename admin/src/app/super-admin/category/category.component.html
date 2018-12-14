@@ -1,28 +1,279 @@
-<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle" width="425" ></p-confirmDialog>
-<div class="row"  style="padding-bottom:10px">
-<div class="col-sm-6">
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle" width="425"></p-confirmDialog>
+
+<div class="row" style="padding-bottom:10px">
+  <div class="col-sm-6">
+    <div class="input-group">
+      <span class="input-group-text">
+        <i class="fa fa-search"></i>
+      </span>
+      <input class="form-control" style="border:1px solid lightgray;" [(ngModel)]="searchText" id="input2-group2" name="input2-group2"
+        placeholder="Search by Category Name" type="text" (ngModelChange)="searchtext()">
+      <span class="input-group-append">
+         <!-- <button class="btn btn-primary" type="button" (click)="serachtext()">Search
+            <i class="fa fa-search"></i>  
+        </button>  -->
+      </span>
+    </div> 
+     <i style="color: red" *ngIf="showSpaceErr">space not allowed!!! </i>
+  </div> 
+
+  <div class="col-sm-6">
+   
+ <Button  class="btn btn-color pull-right" (click)="show()"><i class="fa fa-plus"></i> Add</Button>     
+
+   </div>
+</div>
+<!-- <button class="btn btn-color pull-right" (click)="show()"> <i class="fa fa-plus"></i>ADD</button> -->
+
+
+<div class="row ">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <strong>CMS Category List</strong>
+
+      </div>
+      <div class="card-body">
+<p-treeTable [value]="files1" [totalRecords]="totalItems" [rows]="5" [paginator]="true">
+  <ng-template pTemplate="header">
+    <tr>
+      <th><strong>Category Name</strong></th>
+     
+      <th class="actionheader"><strong>Action</strong></th>
+ 
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+    <tr>
+      <td>
+        <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+        {{rowData.name}}
+      </td>
+ 
+      <td class="action">
+        <!-- [routerLink] = "['/auth/superadmin/editCms/',page._id]" -->
+
+        <a class="fa fa-pencil " style="color:black; padding-right:10px" (click)="showeditSubcategory(rowData.id , rowData.cat_id )"></a>
+        <button class="fa fa-trash btn btn-link" style="color:red"  (click)="deleteSubcategory(rowData.id , rowData.cat_id)"></button>
+        <button *ngIf="rowData.parent == false" class="fa fa-plus btn btn-link"
+         style="color:black" (click)="showSubcategory(rowData.id)"></button>
+      </td>
+    </tr>
+  </ng-template>
+</p-treeTable>
+
+<!-- <p-dialog [(visible)]="displayd">
+    <p-header>
+       Add Brand
+    </p-header>
+    <form [formGroup]="categoryForm" (ngSubmit)="addCategory()"  >
+      <input type="text" formControlName="categoryname" placeholder="Enter Category Name" />
+      
+  
+      <button type="submit" >Submit</button>
+       
+    </form>
+    <p-footer>
+   
+        </p-footer>
+  </p-dialog> -->
+  
+
+  <p-dialog [(visible)]="displayd" [width]="600" [responsive]="true" [modal]="true" [dismissableMask]="true" [autoZIndex]>
+      <p-header>
+        <strong style=" font-size: 20px">Add Category </strong>
+      </p-header>
+      <form [formGroup]="categoryForm" (ngSubmit)="addCategory()">
+        <div class="form-group">
+          <div class="row">
+            <div class="col-sm-12">
+              <label style=" font-size: 20px;">Category Name</label>
+              <input class="form-control" id="street" formControlName="categoryname"
+               placeholder=" Category Name" type="text">
+            </div>
+          
+          </div>
+          <p style="color:red; font-size:12px" 
+          class="error" 
+          *ngIf="categoryForm.controls['categoryname'].hasError('required') && isSubmited">
+           Category Name Required
+          </p>
+          <p style="color:red; font-size:12px" 
+          class="error" 
+          *ngIf="categoryForm.controls['categoryname'].hasError('minlength') && isSubmited">
+          Min Length 3
+            </p>
+        </div>
+        <Button type="submit" class="btn btn-color">
+          <i class="fa fa-plus"></i>Add</Button>
+      </form>
+    </p-dialog>
+  <!-- <p-dialog [(visible)]="displayd" [width]="600" [responsive]="true"> 
+    <p-header>
+      <strong>Add Category </strong>
+    </p-header>
+    <form [formGroup]="categoryForm" (ngSubmit)="addCategory()">
+      <div class="form-group">
+        <div class="row">
+          <div class="col-sm-12">
+            <h6>
+              <label>Category Name</label>
+            </h6>
+            <input class="form-control" id="street" formControlName="categoryname" placeholder="Enter Category Name" type="text">
+          </div>
+        </div>
+      </div>
+   -->
+  
+      <!-- <Button type="submit" class="btn btn-color">
+        <i class="fa fa-plus"></i>Add</Button>
+  
+    </form>
+  </p-dialog> -->
+
+  <!-- <p-dialog [(visible)]="display" [width]="600" [responsive]="true"> 
+      <p-header>
+        <strong>Add Sub Category </strong>
+      </p-header>
+      <form [formGroup]="subcategoryForm" (ngSubmit)="addsubCategory()">
+        <div class="form-group">
+          <div class="row">
+            <div class="col-sm-12">
+              <h6>
+                <label> Sub Category Name</label>
+              </h6>
+              <input class="form-control" id="street" formControlName="subcategoryname" placeholder="Enter Sub Category Name" type="text">
+            </div>
+          </div>
+        </div>
+    
+    
+        <Button type="submit" class="btn btn-color">
+          <i class="fa fa-plus"></i>Add</Button>
+    
+      </form>
+    </p-dialog> -->
+
+
+    <p-dialog [(visible)]="display" [width]="600" [responsive]="true" [modal]="true" [dismissableMask]="true" [autoZIndex]>
+        <p-header>
+          <strong style=" font-size: 20px">Add Sub Category </strong>
+        </p-header>
+        <form [formGroup]="subcategoryForm" (ngSubmit)="addsubCategory()">
+          <div class="form-group">
+            <div class="row">
+              <div class="col-sm-12">
+                <label style=" font-size: 20px;">Sub Category Name</label>
+                <input class="form-control" id="street" formControlName="subcategoryname"
+                 placeholder=" Sub Category Name" type="text">
+              </div>
+            </div>
+            <p style="color:red; font-size:12px" 
+            class="error" 
+            *ngIf="subcategoryForm.controls['subcategoryname'].hasError('required') && isSubmited">
+            Sub Category Name Required
+            </p>
+            <p style="color:red; font-size:12px" 
+            class="error" 
+            *ngIf="subcategoryForm.controls['subcategoryname'].hasError('minlength') && isSubmited">
+            Min Length 3
+              </p>
+          </div>
+          <Button type="submit" class="btn btn-color">
+            <i class="fa fa-plus"></i>Add</Button>
+        </form>
+      </p-dialog>
+
+
+
+
+
+    <!-- <p-dialog [(visible)]="displaye" [width]="600" [responsive]="true"> 
+        <p-header>
+          <strong>Edit Sub Category </strong>
+        </p-header>
+        <form [formGroup]="editsubcategoryForm" (ngSubmit)="editsubCategory()">
+          <div class="form-group">
+            <div class="row">
+              <div class="col-sm-12">
+                <h6>
+                  <label> Sub Category Name</label>
+                </h6>
+                <input class="form-control" id="street" formControlName="editsubcategoryname" placeholder="Enter Sub Category Name" type="text">
+              </div>
+            </div>
+          </div>
+      
+      
+          <Button type="submit" class="btn btn-color">
+           Update</Button>
+      
+        </form>
+      </p-dialog> -->
+      <p-dialog [(visible)]="displaye" [width]="600" [responsive]="true" [modal]="true" [dismissableMask]="true" [autoZIndex]>
+          <p-header>
+            <strong style=" font-size: 20px">Edit Sub Category </strong>
+          </p-header>
+          <form [formGroup]="editsubcategoryForm" (ngSubmit)="editsubCategory()">
+            <div class="form-group">
+              <div class="row">
+                <div class="col-sm-12">
+                  <label style=" font-size: 20px;">Sub Category Name</label>
+                  <input class="form-control" id="street" 
+                  formControlName="editsubcategoryname" placeholder=" Sub Category Name" type="text">
+                </div>
+              </div>
+              <p style="color:red; font-size:12px" 
+              class="error" 
+              *ngIf="editsubcategoryForm.controls['editsubcategoryname'].hasError('required')
+               && isSubmited">
+              Sub Category Name Required
+              </p>
+              <p style="color:red; font-size:12px" 
+              class="error" 
+              *ngIf="editsubcategoryForm.controls['editsubcategoryname'].hasError('minlength')
+               && isSubmited">
+              Min Length 3
+                </p>
+            </div>
+            <Button type="submit" class="btn btn-color">
+             Update</Button>
+          </form>
+        </p-dialog>
+  
+<!-- <div class="row" style="padding-bottom:10px">
+  <div class="col-sm-6">
     <div class="input-group">
       <span class="input-group-text" ><i class="fa fa-search"></i></span> 
       <input  class="form-control" style="border:1px solid lightgray;"
        [(ngModel)]="searchText" 
        id="input2-group2" 
        name="input2-group2" 
-      placeholder="Search using Category Name" 
+      placeholder="Search By Category Name" 
       type="text" (ngModelChange)="searchtext()"><span class="input-group-append">
+      <span class="input-group-text">
+        <i class="fa fa-search"></i>
+      </span>
+      <input class="form-control" style="border:1px solid lightgray;" [(ngModel)]="searchText" id="input2-group2" name="input2-group2"
+        placeholder="Search using Category Name" type="text" (ngModelChange)="searchtext()">
+      <span class="input-group-append"> -->
         <!-- <button class="btn btn-primary" type="button" (click)="serachtext()">Search
             <i class="fa fa-search"></i>  
         </button> -->
-      </span>
-      </div><i style="color: red" *ngIf="showSpaceErr">space not allowed!!!   </i>
-  </div>
- 
-  <div class="col-sm-6">
-    <Button  class="btn btn-color pull-right" [routerLink] = "['/auth/addCategory/']"><i class="fa fa-plus"></i>ADD</Button>
-    <!-- <Button  class="btn btn-color pull-right" [routerLink]="['/auth/addCategory/']"><i class="fa fa-plus"></i> Add</Button>     -->
-    
+      <!-- </span>
     </div>
-</div>
+    <i style="color: red" *ngIf="showSpaceErr">space not allowed!!! </i>
+  </div>
 
+  <div class="col-sm-6">
+    <Button  class="btn btn-color pull-right" [routerLink] = "['/auth/addCategory/']">
+      <i class="fa fa-plus"></i> ADD</Button>
+    <Button class="btn btn-color pull-right" [routerLink]="['/auth/addCategory/']">
+      <i class="fa fa-plus"></i>ADD</Button> -->
+    <!-- <Button  class="btn btn-color pull-right" [routerLink]="['/auth/addCategory/']"><i class="fa fa-plus"></i> Add</Button>     -->
+
+  <!-- </div>
+</div> -->
 <!-- <div class="row"  style="padding-bottom:10px">
     <div class="col-sm-6">
         <div class="input-group">
@@ -37,63 +288,58 @@
       <Button  class="btn btn-color pull-right" [routerLink]="['/auth/addCms']"><i class="fa fa-plus"></i> Add</Button>    
       </div>
 </div> -->
-<div class="row">
-<div class="col-12">
-  <div class="card">
+<!-- commit change -->
+<!-- <div class="row">
+  <div class="col-12">
+    <div class="card">
       <div class="card-header">
-          <strong>  Category List</strong>
-       
-        </div>
-    <div class="card-body">
+        <strong> Category List</strong>
 
-      <!-- <h3 class="card-title">CMS Pages</h3>
+      </div>
+      <div class="card-body"> -->
+
+        <!-- <h3 class="card-title">CMS Pages</h3>
             <h6 class="card-sub1title">This is basic cms page listing</h6> -->
-      <div class="tableLayout">
-        <table class="table table-bordered table-striped">
-          <thead>
-            <tr>
-             
-              <th scope="col">Category Name</th>
-              <th scope="col">Sub Category</th>
-              <th scope="col">Action</th>
-            </tr>
-          </thead>
-         
-          <tbody>
-            <tr *ngFor = "let page of allCategory| paginate: { 
+        <!-- <div class="tableLayout">
+          <table class="table table-bordered table-striped">
+            <thead>
+              <tr>
+
+                <th scope="col">Category Name</th>
+                <th scope="col">Sub Category</th>
+                <th scope="col">Action</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr *ngFor="let page of allCategory| paginate: { 
               itemsPerPage: 5,
               currentPage: p,
               totalItems: totalItems }; let i = index">
-             
-             <td *ngIf="page.parent == false">{{page.category_name}}</td>
-             <td *ngIf="page.sub_category.length == 0 "> --- </td>
-             <td *ngIf="page.sub_category.length != 0 "> 
-                <span *ngFor="let sub_cat of page.sub_category">{{sub_cat.category_name + ','}}</span>  
-             </td>
-             
-             <td>
-                <!-- [routerLink] = "['/auth/superadmin/editCms/',page._id]" -->
-              <a class="fa fa-pencil " style="color:black; padding-right:10px" [routerLink] = "['/auth/editCategory/',page._id]"  ></a>
-              <button class="fa fa-trash btn btn-link" style="color:red" (click)="delete(page._id)" ></button>
-            </td>
-            </tr> 
+                <td>{{i+1}}</td>
+                <td *ngIf="page.parent == false">{{page.category_name}}</td>
+                <td *ngIf="page.sub_category.length == 0 "> --- </td>
+                <td *ngIf="page.sub_category.length != 0 ">
+                  <p *ngFor="let sub_cat of page.sub_category">{{sub_cat.category_name }}</p>
+                </td>
 
-          </tbody>
-        </table>
-        <pagination-controls  
-        (pageChange)="pageChanged($event)"
-        maxSize="9"
-        directionLinks="true"
-        autoHide="true"
-        responsive="true"
-        previousLabel="Previous"
-        nextLabel="Next">
-  </pagination-controls>
+                <td> -->
+                  <!-- [routerLink] = "['/auth/superadmin/editCms/',page._id]" -->
+                  <!-- <a class="fa fa-pencil " style="color:black; padding-right:10px" [routerLink]="['/auth/editCategory/',page._id]"></a>
+                  <button class="fa fa-trash btn btn-link" style="color:red" (click)="delete(page._id)"></button>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+          <pagination-controls (pageChange)="pageChanged($event)" maxSize="9" directionLinks="true" autoHide="true" responsive="true"
+            previousLabel="Previous" nextLabel="Next">
+          </pagination-controls>
+        </div>
       </div>
     </div>
   </div>
-</div>
-</div>
+</div> -->
 
 <!-- 
 <form [formGroup]= "editCategoryForm"  >
@@ -142,3 +388,7 @@
       
     
     </form> -->
+    </div>
+    </div>
+    </div>
+    </div>

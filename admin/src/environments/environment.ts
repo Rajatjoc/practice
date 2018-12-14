@@ -5,7 +5,7 @@
 
 export const environment = {
   production: false,
-  API_ENDPOINT: 'http://localhost:3503/' //local
-  // API_ENDPOINT: 'http://54.71.18.74:3503/' // staging URL
+  // API_ENDPOINT: 'http://localhost:3503/' //local
+  API_ENDPOINT: 'http://54.71.18.74:3503/' // staging URL
 
 };

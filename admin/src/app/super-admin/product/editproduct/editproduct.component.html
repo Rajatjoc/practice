@@ -1,0 +1,423 @@
+<div class="col-md-12">
+  <div class="card">
+    <div class="card-header">
+      <strong>Product Detail</strong>
+    </div>
+    <div class="card-body">
+      <form class="form-horizontal" [formGroup]="editproductForm" enctype="multipart/form-data">
+        <div class="form-group row">
+          <label class="col-md-3 col-form-label" for="text-input">Product Name</label>
+          <div class="col-md-9">
+            <input class="form-control" id="text-input" type="text" name="text-input" formControlName="product_name" formArrayName="product_name"
+              placeholder="Product Name">
+            <!-- <span class="help-block">This is a help text</span> -->
+            <p style="color:red; font-size:12px" class="error" *ngIf="editproductForm.controls['product_name'].hasError('required')
+    && isSubmited">
+              Product Name Required
+            </p>
+            <p style="color:red; font-size:12px" class="error" *ngIf="editproductForm.controls['product_name'].hasError('minlength')
+    && isSubmited">
+              Min Length 3
+            </p>
+          </div>
+        </div>
+
+        <!-- <div class="form-group row">
+        <label class="col-md-3 col-form-label" for="text-input">Product Name</label>
+        <div class="col-md-9">
+           
+        <!-- <span class="help-block">This is a help text</span> -->
+        <!-- </div>
+        </div> -->
+        <div color-picker ng-model="colorValueInline"></div>
+        <div class="form-group row">
+          <label class="col-md-3 col-form-label" for="textarea-input">Desciption</label>
+          <div class="col-md-9">
+            <textarea class="form-control" id="textarea-input" name="textarea-input" formControlName="description" formArrayName="description"
+              rows="9" placeholder="Description"></textarea>
+            <p style="color:red; font-size:12px" class="error" *ngIf="editproductForm.controls['description'].hasError('required')
+    && isSubmited">
+              Desciption Required
+            </p>
+            <p style="color:red; font-size:12px" class="error" *ngIf="editproductForm.controls['description'].hasError('minlength')
+    && isSubmited">
+              Min Length 3
+            </p>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-md-3 col-form-label" for="select1">Brand</label>
+          <div class="col-md-9">
+            <select class="form-control" id="select1" name="select1" formArrayName="brand" formControlName="brand">
+              <option value="">Please Brand</option>
+              <option *ngFor="let brand of brands" value="{{brand._id}}">{{brand.title}}</option>
+
+            </select>
+            <p style="color:red; font-size:12px" class="error" *ngIf="editproductForm.controls['brand'].hasError('required')
+    && isSubmited">
+              Brand Required
+            </p>
+            <p style="color:red; font-size:12px" class="error" *ngIf="editproductForm.controls['brand'].hasError('minlength')
+    && isSubmited">
+              Min Length 3
+            </p>
+          </div>
+        </div>
+        <!-- {{categories | json}} -->
+        <div class="form-group row">
+          <label class="col-md-3 col-form-label" for="select1">Product For</label>
+
+          <div class="col-md-3">
+            <select class="form-control" formControlName="category" (change)="getsubcategory($event)">
+              <option value="">Please select category</option>
+              <option *ngFor="let category of categories"
+               value="{{category._id}}">{{category.title}}</option>
+
+            </select>
+
+            <p style="color:red; font-size:12px" class="error" 
+            *ngIf="editproductForm.controls['category'].hasError('required')
+            && isSubmited">
+              Product For Required
+            </p>
+            <p style="color:red; font-size:12px" class="error" 
+            *ngIf="editproductForm.controls['category'].hasError('minlength')
+            && isSubmited">
+              Min Length 3
+            </p>
+          </div>
+          <label class="col-md-3 col-form-label" for="select1">Product Type</label>
+          <div class="col-md-3">
+            <select class="form-control" id="select1" formControlName="sub_category" (change)="getDeepsubcategory($event)">
+              <option value="">Please select sub category</option>
+              <option *ngFor="let subcate of subcategories" value="{{subcate._id}}">{{subcate.title}}</option>
+
+            </select>
+            <p style="color:red; font-size:12px" class="error" *ngIf="editproductForm.controls['sub_category'].hasError('required')
+                            && isSubmited">
+              Product Type Required
+            </p>
+            <p style="color:red; font-size:12px" class="error" *ngIf="editproductForm.controls['sub_category'].hasError('minlength')
+                            && isSubmited">
+              Min Length 3
+            </p>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class="col-md-3 col-form-label" for="select1">Product's Sub category</label>
+          <div class="col-md-9">
+            <select class="form-control" id="select1" name="select1" formArrayName="deepsub_category" formControlName="deepsub_category">
+              <option value="">Select sub category</option>
+              <option *ngFor="let subcate of deepsubcategories" value="{{subcate._id}}">{{subcate.title}}</option>
+
+            </select>
+            <p style="color:red; font-size:12px" class="error" *ngIf="editproductForm.controls['deepsub_category'].hasError('required')
+                && isSubmited">
+              Product's Sub category Required
+            </p>
+            <p style="color:red; font-size:12px" class="error" *ngIf="editproductForm.controls['deepsub_category'].hasError('minlength')
+                && isSubmited">
+              Min Length 3
+            </p>
+          </div>
+        </div>
+        <div class="form-group row">
+        <label class="col-md-3 col-form-label" for="select1">Status</label>
+        <div class="col-md-9">
+            <select class="form-control"  formControlName="OrderStatus">
+                <option value="">select status</option>
+                <option value="true">Active </option>
+                <option value="false">InActive</option>
+                
+              </select>
+        </div>
+        
+          <p style="color:red; font-size:12px" class="error" 
+          *ngIf="editproductForm.controls['OrderStatus'].hasError('required')
+          && isSubmited">
+         Email Required
+                  </p>
+                  <p style="color:red; font-size:12px"
+                   class="error" 
+                   *ngIf="editproductForm.controls['OrderStatus'].hasError('minlength')
+          && isSubmited">
+                    Min Length 3
+                  </p> 
+          </div>
+        <!--   
+    <div class=" form-group row">
+        <label class="col-md-3 col-form-label" for="file-multiple-input">Multiple File input</label>
+         <div class="col-md-9">
+             <input type="file" class="form-control" id="images" name="images[]" formArrayName="images"  (change)="preview_images($event);" multiple/> -->
+        <!-- <div class="myclass" *ngFor="let image of imgArr">
+                 <!-- <img class="img-responsive" src="{{image.name}}"/> -->
+        <!-- </div> -->
+        <!-- </div> -->
+
+        <!-- <div class="col-md-6">
+             <input type="submit" class="btn btn-primary" name='submit_image' value="Upload Multiple Image"/>
+         </div> -->
+
+        <!-- </div> -->
+        <!-- <div class="form-group row">
+            <label class="col-md-3 col-form-label" for="select1">Varient</label>
+           
+           
+           
+                <div class="col-md-9">
+                    <Button  class="btn btn-color " (click)="addtext()"><i class="fa fa-plus"></i> Add Varient</Button>    
+                    </div>
+            </div> -->
+        <!-- <div class="form-group row" > -->
+
+        <!-- <div  formArrayName="varient" *ngFor="let item of productForm.get('varient').controls; let i = index;"
+                style="padding:5px">
+                <div [formGroupName]="i" class="row" >
+                  <div class="col-sm-3"></div>
+                  
+                  <div class="col-md-3">
+                    <label>Country</label>
+                    <select class="form-control"  formControlName="country">
+                    <option value="">Please select country</option>
+                    <option *ngFor="let country of countries" value="{{country._id}}">{{country.name}}</option>
+                    
+                    
+                 </select>
+                </div>
+                <div class="col-md-3">
+                        <label>Size</label>
+                        <p-multiSelect   [panelStyle]="{minWidth:'20em'}" [options]="sizes" formControlName="size" optionLabel="sizeName"></p-multiSelect>
+                   
+                </div>
+               
+                <div class="col-sm-3">
+                   
+                        <label>Colors</label>
+                        <p-multiSelect   [panelStyle]="{minWidth:'20em'}" [options]="colors" formControlName="color" optionLabel="name"></p-multiSelect>
+                   
+                </div>
+                  <div class="col-sm-1" >
+                      <button (click)="deleteRow(i)" class="btn btn-link fa fa-trash " style="color:red"></button>
+                    </div>
+                 
+                </div>
+              </div>
+            -->
+        <div class="form-group row">
+          <label class="col-md-3 col-form-label" for="select1">Varient</label>
+
+
+
+          <div class="col-md-9">
+            <Button class="btn btn-color " (click)="addtext()">
+              <i class="fa fa-plus"></i> Add Varient</Button>
+          </div>
+        </div>
+        <div formArrayName="varient" *ngFor="let item of editproductForm.get('varient').controls; let i = index;" style="padding:5px">
+          <div [formGroupName]="i" class="row">
+            <div class="col-sm-3"></div>
+
+            <div class="col-md-2">
+              <label>Country</label>
+              <select class="form-control" formControlName="country">
+                <option value="">Please select country</option>
+                <option *ngFor="let country of countries" value="{{country._id}}">{{country.name}}</option>
+
+
+              </select>
+            </div>
+            <div class="col-md-2">
+              <label>Size</label>
+              <p-multiSelect 
+              [panelStyle]="{minWidth:'10em'}" 
+              [options]="sizes" 
+              formControlName="size" 
+              optionLabel="sizeName"></p-multiSelect>
+
+            </div>
+
+            <div class="col-sm-2">
+
+              <label>Colors</label>
+              <p-multiSelect
+               [panelStyle]="{minWidth:'10em'}" 
+               [options]="colors" 
+               formControlName="color" 
+               optionLabel="name">
+              </p-multiSelect>
+
+            </div>
+            <div class="col-sm-2">
+              <label>Delete</label>
+              <br>
+              <button (click)="deleteRow(i)" class="btn btn-link fa fa-trash " style="color:red"></button>
+            </div>
+            <!-- <div class="col-sm-1">
+              <label>Update</label>
+              <br/>
+              <Button class="btn btn-color pull-right" (click)="updateProduct()"> Update</Button>
+            </div> -->
+          </div>
+          
+        </div>
+
+        <Button class="btn btn-color pull-right" (click)="updateProduct()"> Update</Button>
+      </form>
+    </div>
+        <div class="row">
+
+          <div class="col-sm-12">
+            <div class="card">
+          
+              <div class="card-header">
+                    <strong>Images </strong>
+                 
+                  </div>
+              <div class="card-body row">
+                  <!-- container -->
+      <div   *ngFor="let image of images;let i= index">
+        <img src="{{apiUrl}}{{image}}" class="img-responsive test" alt="" 
+        style="height:200px;width:150px;padding:10px;position:relative"/>
+        <button class="btn" (click)="deleteimage(image,i)"><i class="fa fa-trash"></i> </button>
+      </div>
+
+      <div class=""  
+      *ngFor="let url of urls;let i=index">
+     
+          <img [src]="url" class="img-responsive test" 
+          style="height:200px;width:180px;padding:10px ;position:relative">
+          <button class="btn" (click)="removeimage(url,i)"><i class="fa fa-trash"></i> </button>          
+        </div>
+        
+    </div>
+  
+    </div>
+    <div class="row">
+      <div class = "col-sm-2">
+          <label for="file-upload" class="custom-file-upload">
+              <i class="fa fa-hand-o-right"></i> Choose Image
+          </label>
+          <input class="" id="file-upload" type="file" accept="image/*"  name="myFile"  (change)="addImageLeft($event,false)" multiple>
+         
+      </div>
+<div class="col-sm-9">
+    <button class="btn btn-primary "  style="float: left"  type="button" (click)="onUpload()">
+        <i class="fa fa-cloud-upload"></i>  Update Image </button>
+</div>
+<div class="col-sm-1"></div>
+    </div>
+  
+    </div>
+   
+
+    </div>
+    
+    <div class="row">
+        <div class="col-12">
+          <div class="card">
+              <div class="card-header">
+                <strong>Varients </strong>
+
+              </div>
+              <div class="card-body">
+                <!-- <h3 class="card-title">CMS Pages</h3>
+                    <h6 class="card-sub1title">This is basic cms page listing</h6> -->
+
+                <!-- <Button  class="btn btn-color pull-right"(click)="addtext()" style="margin: 3px;"><i class="fa fa-plus"></i>Add more Varients</Button> -->
+
+                <!-- <div class="col-sm-12" *ngIf="display==true">
+                    <div  formArrayName="varient" *ngFor="let item of editproductForm.get('varient').controls; let i = index;"
+                    style="padding:5px">
+                    <div [formGroupName]="i" class="row" >
+                     
+                      
+                      <div class="col-md-3">
+                        <label>Country</label>
+                        <select class="form-control"  formControlName="country">
+                        <option value="">Please select country</option>
+                        <option *ngFor="let country of countries" value="{{country._id}}">{{country.name}}</option>
+                        
+                        
+                     </select>
+                    </div>
+                    <div class="col-md-3">
+                            <label>Size</label>
+                            <p-multiSelect   [panelStyle]="{minWidth:'20em'}" [options]="sizes" formControlName="size" optionLabel="sizeName"></p-multiSelect>
+                     
+                    </div>
+                   
+                    <div class="col-sm-3">
+                       
+                            <label>Colors</label>
+                            <p-multiSelect   [panelStyle]="{minWidth:'20em'}" [options]="colors" formControlName="color" optionLabel="name"></p-multiSelect>
+                       
+                    </div>
+                      <div class="col-sm-1" >
+                          <button (click)="deleteRow(i)" class="btn btn-link fa fa-trash " style="color:red"></button>
+                        </div>
+                     
+                    </div>
+                  </div>
+                </div> -->
+                <div class="tableLayout">
+                  <table class="table table-bordered table-striped">
+                    <thead>
+                      <tr>
+                        <th scope="col">S.No</th>
+                        <th scope="col">Color</th>
+                        <th scope="col">Size</th>
+                        <th scope="col">Country</th>
+                        <th scope="col">Price</th>
+                        <!-- <th scope="col">Count</th> -->
+                        <!-- <th scope="col">Action</th> -->
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let page of variants ;let i=index">
+                        <td scope="row">{{i+1}}</td>
+                        <td>{{page?.color.name}}</td>
+                        <td>
+                          {{page?.size.sizeName}}
+                        </td>
+                        <td>
+                          {{page?.country.name}}
+                        </td>
+                        <td>
+                          <!-- <form  [formGroup]="priceForm" > -->
+                          <input [(ngModel)]="variants[i].price" type="text" name="price" />
+                          <!-- </form> -->
+                        </td>
+                        <!-- <td>
+                        <input type="Number" value="{{page.count}}" />
+                     </td> -->
+
+
+                        <!-- <td>
+                      <span *ngIf="page.status == true" class="badge badge-success">Active</span>
+                      <span *ngIf="page.status == false" class="badge badge-danger">In-Active</span>
+                    </td> -->
+                        <!-- <td>
+                      <a class="fa fa-pencil " style="color:black; padding-right:10px" [routerLink] = "['/auth/product/editcategory/',page._id]" ></a>
+                      <button class="fa fa-trash btn btn-link" style="color:red" (click)="delete(page._id)" ></button>
+                     
+                    </td> -->
+                      </tr>
+
+                    </tbody>
+                  </table>
+
+                </div>
+                <Button class="btn btn-color pull-right" (click)="update()" style="margin: 3px;">Update</Button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <!-- <button class="btn btn-sm btn-primary" type="submit" (click)="setproduct()" >
+    <i class="fa fa-dot-circle-o"></i> Submit</button>
+   -->
+
+        </div>
+      </div>
+
+    </div>

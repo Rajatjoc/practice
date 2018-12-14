@@ -1,0 +1,241 @@
+
+<!-- <ay-treeTable [value]="Category">
+  <ay-column field="title" header="Name"></ay-column>
+  <ay-column field="gender" header="Gender"></ay-column>
+</ay-treeTable> -->
+<!-- {{Category |json}} -->
+<!-- <br/><br/><br/> -->
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle" width="425" ></p-confirmDialog>
+<div class="row"  style="padding-bottom:10px">
+  <div class="col-sm-6">
+    <div class="input-group">
+      <span class="input-group-text">
+        <i class="fa fa-search"></i>
+      </span>
+      <input class="form-control" style="border:1px solid lightgray" 
+      [(ngModel)]="searchText" id="input2-group2" 
+      name="input2-group2"
+        placeholder="Search by Category Name" type="text" (ngModelChange)="searchtext()">
+
+    </div>
+    <i style="color: red" *ngIf="showSpaceErr">space not allowed!!! </i>
+  </div>
+ 
+  <div class="col-sm-6">
+    <Button  class="btn btn-color pull-right" 
+    (click)="show()"><i class="fa fa-plus"></i> Add</Button>    
+    </div>
+</div>
+<!-- 
+
+<div class="row " >
+<div class="col-12">
+  <div class="card">
+      <div class="card-header">
+          <strong>Manage Category </strong>
+       
+        </div>
+    <div class="card-body">
+      <!-- <h3 class="card-title">CMS Pages</h3>
+            <h6 class="card-sub1title">This is basic cms page listing</h6> -->
+      <!-- <div class="tableLayout">
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th scope="col">S.No</th>
+              <th scope="col">Category Name</th>
+              <th scope="col">Sub Category</th>
+            
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor = "let page of Category | paginate: { 
+            itemsPerPage: 5,
+            currentPage: p,
+            totalItems: totalItems };let i=index">
+              <td scope="row">{{i+1}}</td>
+             <td>{{page.title}}</td>
+             <td>
+               <p *ngFor="let subcate of page.sub_category">{{subcate.title}}</p>
+             </td> -->
+            
+           
+           
+             <!-- <td>
+              <span *ngIf="page.status == true" class="badge badge-success">Active</span>
+              <span *ngIf="page.status == false" class="badge badge-danger">In-Active</span>
+            </td> -->
+             <!-- <td>
+              <a class="fa fa-pencil " style="color:black; padding-right:10px" [routerLink] = "['/auth/product/editcategory/',page._id]" ></a>
+              <button class="fa fa-trash btn btn-link" style="color:red" (click)="delete(page._id)" ></button>
+             
+            </td>
+            </tr> 
+
+          </tbody>
+        </table>
+        <pagination-controls  
+              (pageChange)="pageChanged($event)"
+              maxSize="9"
+              directionLinks="true"
+              autoHide="true"
+              responsive="true"
+              previousLabel="Previous"
+              nextLabel="Next">
+        </pagination-controls>
+      </div>
+    </div>
+  </div>
+</div>
+</div> -->
+
+
+
+<div class="row ">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <strong>Product Category List</strong>
+  
+        </div>
+        <div class="card-body">
+  <p-treeTable [value]="files1" [totalRecords]="totalItems" [rows]="5" [paginator]="true">
+    <ng-template pTemplate="header">
+      <tr>
+        <th><strong>Category Name</strong></th>
+       
+        <th class="actionheader"><strong>Action</strong></th>
+   
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+      <tr>
+        <td>
+          <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+          {{rowData.name}}
+        </td>
+   
+        <td class="action">
+          <!-- [routerLink] = "['/auth/superadmin/editCms/',page._id]" -->
+  
+          <a class="fa fa-pencil " style="color:black; padding-right:10px" (click)="showeditSubcategory(rowData.id , rowData.cat_id )"></a>
+          <button class="fa fa-trash btn btn-link" style="color:red"  (click)="deleteSubcategory(rowData.id , rowData.cat_id)"></button>
+          <button  *ngIf="rowData.child == false" class="fa fa-plus btn btn-link" style="color:black" (click)="showSubcategory(rowData.id)"></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-treeTable>
+  <!-- <pagination-controls  
+  (pageChange)="pageChanged($event)"
+  maxSize="9"
+  directionLinks="true"
+  autoHide="true"
+  responsive="true"
+  previousLabel="Previous"
+  nextLabel="Next">
+</pagination-controls> -->
+
+
+<p-dialog [(visible)]="display" [width]="600" [responsive]="true" [modal]="true" [dismissableMask]="true" [autoZIndex]>
+    <p-header>
+      <strong style=" font-size: 20px">Add Category </strong>
+    </p-header>
+    <form [formGroup]="categoryForm" (ngSubmit)="addCategory()">
+      <div class="form-group">
+        <div class="row">
+          <div class="col-sm-12">
+            <label style=" font-size: 20px;">Category Name</label>
+            <input class="form-control" id="street" formControlName="categoryName"
+             placeholder=" Category Name" type="text">
+             
+          </div>
+        </div>
+        <p style="color:red; font-size:12px" 
+        class="error" 
+        *ngIf="categoryForm.controls['categoryName'].hasError('required')
+         && isSubmited">
+        Category Name Required
+        </p>
+        <p style="color:red; font-size:12px" 
+        class="error" 
+        *ngIf="categoryForm.controls['categoryName'].hasError('minlength')
+         && isSubmited">
+        Min Length 3
+          </p>
+      </div>
+      <Button type="submit" class="btn btn-color">
+        <i class="fa fa-plus"></i>Add</Button>
+    </form>
+  </p-dialog>
+
+
+
+
+  <p-dialog [(visible)]="displaysubCategory" [width]="600" [responsive]="true" [modal]="true" [dismissableMask]="true" [autoZIndex]>
+      <p-header>
+        <strong style=" font-size: 20px">Add Sub Category </strong>
+      </p-header>
+      <form [formGroup]="subcategoryForm" (ngSubmit)="addsubCategory()">
+        <div class="form-group">
+          <div class="row">
+            <div class="col-sm-12">
+              <label style=" font-size: 20px;">Sub Category Name</label>
+              <input class="form-control" id="street" formControlName="subcategoryname"
+               placeholder=" Sub Category Name" type="text">
+            </div>
+            
+          </div>
+          <p style="color:red; font-size:12px" 
+          class="error" 
+          *ngIf="subcategoryForm.controls['subcategoryname'].hasError('required')
+           && isSubmited">
+           Sub Category Name Required
+          </p>
+          <p style="color:red; font-size:12px" 
+          class="error" 
+          *ngIf="subcategoryForm.controls['subcategoryname'].hasError('minlength')
+           && isSubmited">
+          Min Length 3
+            </p>
+        </div>
+        <Button type="submit" class="btn btn-color">
+          <i class="fa fa-plus"></i>Add</Button>
+      </form>
+    </p-dialog>
+
+    <p-dialog [(visible)]="displayedit" [width]="600" [responsive]="true" [modal]="true" [dismissableMask]="true" [autoZIndex]>
+        <p-header>
+          <strong style=" font-size: 20px">Edit Sub Category </strong>
+        </p-header>
+        <form [formGroup]="editsubcategoryForm" (ngSubmit)="editsubCategory()">
+          <div class="form-group">
+            <div class="row">
+              <div class="col-sm-12">
+                <label style=" font-size: 20px;">Sub Category Name</label>
+                <input class="form-control" id="street" 
+                formControlName="editsubcategoryname" placeholder=" Sub Category Name" type="text">
+              </div>
+            </div>
+            <p style="color:red; font-size:12px" 
+            class="error" 
+            *ngIf="editsubcategoryForm.controls['editsubcategoryname'].hasError('required')
+             && isSubmited">
+             Sub Category Name Required
+            </p>
+            <p style="color:red; font-size:12px" 
+            class="error" 
+            *ngIf="editsubcategoryForm.controls['editsubcategoryname'].hasError('minlength')
+             && isSubmited">
+            Min Length 3
+              </p>
+          </div>
+          <Button type="submit" class="btn btn-color">
+           Update</Button>
+        </form>
+      </p-dialog>
+
+</div>
+</div>
+</div>
+</div>

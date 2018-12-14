@@ -1,0 +1,138 @@
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle" width="425" ></p-confirmDialog>
+<!-- <div class="row"  style="padding-bottom:10px">
+  <div class="col-sm-6">
+      <div class="input-group">
+        <input  class="form-control" style="border:1px solid cadetblue" [(ngModel)]="searchText" id="input2-group2" name="input2-group2" (ngModelChange)="serachtext()" placeholder="Search by product name" type="text"><span class="input-group-append">
+        <button class="btn btn-primary" type="button" (click)="serachtext()">Search
+            <i class="fa fa-search"></i>  
+        </button></span>
+      </div>
+  </div>
+ 
+  <div class="col-sm-6">
+    <Button  class="btn btn-color pull-right" [routerLink]="['/auth/product/productcateory']"><i class="fa fa-plus"></i> Add</Button>    
+    </div>
+</div> -->
+
+
+<div class="row" *ngIf="display == false">
+<div class="col-12">
+  <div class="card">
+      <div class="card-header">
+          <strong>Manage Varients </strong>
+       
+        </div>
+    <div class="card-body">
+      <!-- <h3 class="card-title">CMS Pages</h3>
+            <h6 class="card-sub1title">This is basic cms page listing</h6> -->
+      <div class="tableLayout">
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th scope="col">S.No</th>
+              <th scope="col">Color</th>
+              <th scope="col">Size</th>
+              <th scope="col">Country</th>
+              <th scope="col">Price</th>
+              <!-- <th scope="col">Count</th> -->
+              <!-- <th scope="col">Action</th> -->
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor = "let page of variants ;let i=index">
+              <td scope="row">{{i+1}}</td>
+             <td>{{page?.color.name}}</td>
+             <td>
+                {{page?.size.sizeName}}
+             </td>
+             <td>
+                {{page?.country.name}}
+             </td>
+             <td>
+               <!-- <form  [formGroup]="priceForm" > -->
+               <input [(ngModel)]="variants[i].price" type="text" name="price"/>
+              <!-- </form> -->
+              </td>
+             <!-- <td>
+                <input type="Number" value="{{page.count}}" />
+             </td> -->
+           
+           
+             <!-- <td>
+              <span *ngIf="page.status == true" class="badge badge-success">Active</span>
+              <span *ngIf="page.status == false" class="badge badge-danger">In-Active</span>
+            </td> -->
+             <!-- <td>
+              <a class="fa fa-pencil " style="color:black; padding-right:10px" [routerLink] = "['/auth/product/editcategory/',page._id]" ></a>
+              <button class="fa fa-trash btn btn-link" style="color:red" (click)="delete(page._id)" ></button>
+             
+            </td> -->
+            </tr> 
+
+          </tbody>
+        </table>
+        <Button  class="btn btn-color" (click)="add()">Save</Button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="row" *ngIf="display == true">
+    <div class="col-12">
+      <div class="card">
+          <div class="card-header">
+              <strong>Manage Varients </strong>
+           
+            </div>
+        <div class="card-body" style="min-height : 100%">
+
+
+            <div class="card">
+                <div class="card-header">
+                    <strong>Images </strong>
+                 
+                  </div>
+              <div class="card-body row">
+                  <!-- <img [src]="imageSrc"  class="img-responsive" alt="no image" style="height:200px;width:200px;padding:10px" /> -->
+                <div class="col-sm-2 " *ngFor="let image of images; let i=index">
+                    <img [src]="image"  class="img-responsive" alt="no image" style="height:200px;width:200px;padding:10px" />
+                    <button class="btn" (click)="removeimage(url,i)"><i class="fa fa-trash"></i> </button> 
+                  </div>
+    </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+          <label for="file-upload" class="custom-file-upload">
+            <i class="fa fa-cloud-upload"></i> Select Image
+        </label>
+        <!-- <input id="file-upload" type="file"/> -->
+            <input class="" id="file-upload" type="file" accept="image/*"  name="myFile"  (change)="addImageLeft1($event,false)" multiple>
+            <button type="button" class="btn btn-color"  (click)="done($event)"> Submit</button>            
+          <div class="row">
+              <!-- <div class="col-sm-3" *ngFor="let image of images">
+                  <img src="{{apiUrl}}{{image.images}}" class="img-responsive" alt=""   />
+              
+                </div> -->
+                     
+          </div>
+          <!-- <div class="form-group">
+          <Button  class="btn btn-color pull-right" style="margin-top : 5px;" (click)="addImage()">Save Image</Button>
+        </div> -->
+        </div>
+      </div>
+    </div>
+    </div>
+    
+    

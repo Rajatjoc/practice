@@ -9,9 +9,24 @@ export class CategoryService {
   private apiUrl = environment.API_ENDPOINT;
   constructor(private httpClient :HttpClient) {
   }
-  addCategory(category : any): Observable<any>{
-    return this.httpClient.post(this.apiUrl + "category/addCategory",{category});
+  // addCategory(category : any): Observable<any>{
+  //   return this.httpClient.post(this.apiUrl + "category/addCategory",{category});
+  // }
+  addCategory(data): Observable<any>{ 
+    console.log(data)
+    return this.httpClient.post(this.apiUrl + "category/addCategory",{data});
   }
+  addsubcategory(id , data): Observable<any>{ 
+    console.log(data)
+    return this.httpClient.post(this.apiUrl + "category/addsubcategory",{id , data});
+  }
+  editsubcategory(data): Observable<any>{ 
+    console.log(data)
+    return this.httpClient.post(this.apiUrl + "category/editsubcategory",{data});
+  }
+
+
+
   getAllCategorycount(searchString): Observable<any>{
     return this.httpClient.post(this.apiUrl + "category/getAllCategorycount",{searchString});
   }
@@ -27,7 +42,10 @@ export class CategoryService {
   updateCategory(data):Observable<any>{
     return this.httpClient.post(this.apiUrl + "category/updateCategory",{data})
   }
-  deleteCategory(id): Observable<any>{
-    return this.httpClient.post(this.apiUrl + "category/deleteCategory",{id})
+  // deleteCategory(id): Observable<any>{
+  //   return this.httpClient.post(this.apiUrl + "category/deleteCategory",{id})
+  // }
+  deleteCategory(id , cat_id): Observable<any>{
+    return this.httpClient.post(this.apiUrl + "category/deleteCategory",{id , cat_id})
   }
 }

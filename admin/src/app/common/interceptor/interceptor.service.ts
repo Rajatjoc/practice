@@ -22,7 +22,8 @@ export class MyInterceptor implements HttpInterceptor {
             return next.handle(req_with_token)
         }
         else {
-
+            console.log('Not Authorised');
+            
             return next.handle(request);
         }
     }

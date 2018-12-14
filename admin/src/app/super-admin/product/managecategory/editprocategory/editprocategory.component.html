@@ -1,0 +1,92 @@
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle" width="425" ></p-confirmDialog>
+<div class="row">
+  <div class="col-sm-3"></div>
+<div class="col-sm-6">
+    <div class="card">
+        <form class="form-horizontal" [formGroup]="categoryForm" >
+    <div class="card-header">
+    <strong>Product Category</strong>
+    </div>
+    <div class="card-body">
+    
+    <div class="row">
+    <div class="col-sm-10">
+    <div class="form-group">
+    <label for="name">Name</label>
+    <input class="form-control" id="name"
+    type="text" 
+    formControlName="category_name"
+     placeholder="Product Category">
+    </div>
+    </div>
+    <div class="col-sm-2"></div>
+    </div>
+    <div  style="padding:5px" >
+     
+      
+        <button class=" btn btn-color"  (click)="addnewtext()"> 
+            <i class="fa fa-plus"></i> Sub-Category</button>
+      
+      
+    </div>
+    
+    <div  formArrayName="sub_category" 
+    *ngFor="let item of categoryForm.get('sub_category').controls; let i = index;"
+    style="padding:5px">
+    <div [formGroupName]="i" class="row">
+      <div class="col-sm-10">
+        <input class="form-control" 
+        formControlName="category_name" 
+        placeholder="sub category name">
+        
+      </div>
+      <div class="col-sm-2">
+        <button (click)="deleteRow(item,i)" class="btn btn-link fa fa-trash"></button>
+
+      </div>
+      <div class="col-sm-9">
+        
+          
+        </div>
+        <div class="col-sm-3">
+            <button (click)="addNewProject(item.controls.deep_sub_category)"  class="btn btn-link fa fa-plus">
+                Add sub
+              </button>
+        </div>
+          <div class="col-sm-2"></div>
+            <div class="col-sm-10">
+      <div formArrayName="deep_sub_category">
+          <div *ngFor="let project of item.get('deep_sub_category').controls; let j=index">
+          
+            <div [formGroupName]="j">
+              <span>
+                <input formControlName="deep_sub_category" class="form-control" />
+                <button (click)="deleteProject(item.controls.deep_sub_category, j)" class="btn btn-link  fa fa-trash pull-right">
+              </button>
+              </span>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  
+   
+      <div  style="padding:10px">
+        <button class="btn btn-color" type="submit" (click)="update()">Update</button>
+        <button class="btn btn-back pull-right"
+         type="button" 
+         [routerLink]="['/auth/product/manageproduct']"
+         style="background-color: #2f353a;color:white">
+         BACK
+        </button>        
+      
+    </div>
+    </div>
+  </form>
+    </div>
+    </div>
+    <div class="col-sm-3"></div>
+    </div>
+

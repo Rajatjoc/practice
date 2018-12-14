@@ -19,15 +19,18 @@ export class LandingComponent implements OnInit {
   public sidebarMinimized = true;
   private changes: MutationObserver;
   public element: HTMLElement = document.body;
+  public headerName :any;
+  public image : any;
   constructor(
     private router: Router,
     private _service : LoginService,
     private toastr : ToastrService,
     private DataExchangeService : DataExchangeService ,
-    private userService : ProfileserviceService
+    private userService : ProfileserviceService,
+
 )
  {
-
+  this.readsession();
     this.changes = new MutationObserver((mutations) => {
       this.sidebarMinimized = document.body.classList.contains('sidebar-minimized');
     });
@@ -37,49 +40,43 @@ export class LandingComponent implements OnInit {
     });
 
     this.userService.getProfileImage().subscribe(res => {
-
-      this.userData =  JSON.parse(localStorage.getItem('userName'));
-      this.userData.image = res.profileImage
-
-      // this.userData.image_thumbnail =  res.data.imageThumbnail
-    })
+      console.log(res , 'hello')
+      if(res){
+          this.image = res.profileImage;
+      }
+  })
+  this.userService.getProfileName().subscribe(res => {
+    console.log(res , 'hello')
+    if(res){
+         this.headerName = res.name;
+        
+    }
+})
   }
 
   ngOnInit(): void {
-     
-      localStorage.getItem("userName");
-      this.userData = JSON.parse(localStorage.getItem('userName'));
-
-      // localStorage.removeItem("userName");
-      //  let abc = this.DataExchangeService.getData()
-      //   abc.subscribe(res=>{
-      //     console.log(res,"Snajeeeasndkansdkn")
-      //   })
-       //  .subscribe(res=>{
-      //    console.log("yuess")
-      //  })
-      // console.log(this.userName,"-----")
-       //  .subscribe(res =>
-      // {
-      //   console.log("inside landing>>>>>>>>>>>>>>>>>>>?????????????/", res);
-        
-      // })    
+   
+       
           
       }
   logout()
   {
     this._service.logout().subscribe(res=>{
       if(res.code == 200){
-        localStorage.removeItem("token");
-        this.toastr.success(res.message)
+        localStorage.clear();
+        this.toastr.success("Logout Successfully")
         this.router.navigate(["login"]);
       }
       else{
-        localStorage.removeItem("token");
+        localStorage.clear();
         this.toastr.success(res.message)
         this.router.navigate(["login"]);
       }
     })
   }
- 
+  readsession(){
+    let user = this._service.readSession();
+    this.headerName = user.firstName +' '+ user.lastName;
+    this.image =user.image;
+}
 }

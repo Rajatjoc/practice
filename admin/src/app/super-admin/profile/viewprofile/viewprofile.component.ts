@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { environment } from '../../../../environments/environment';
 import { ToastrService } from 'ngx-toastr';
+import { LoginService } from '../../../common/signup-signin/services/login.service';
 
 @Component({
   selector: 'app-viewprofile',
@@ -24,7 +25,8 @@ export class ViewprofileComponent implements OnInit {
   constructor(private ProfileService: ProfileserviceService,
     private router: Router,
     private formbuilder: FormBuilder,
-    private toastr: ToastrService) { }
+    private toastr: ToastrService,
+  private _service : LoginService ) { }
 
   ngOnInit() {
 
@@ -63,25 +65,27 @@ export class ViewprofileComponent implements OnInit {
         formData.append('id', this.id);
         console.log(formData)
 
-        //   this.loading = true;
-        // this.blockUI.start('Loading...'); // Start blocking
+      
+{
+//   "code":200,
+// "message":"data updated successfully",
+// "data":{"token":"eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjViZjI2MDVlYzRhNDQ4MDY2N2VmZWU2MSIsImVtYWlsIjoicmFqYXRqb3NoaUB5b3BtYWlsLmNvbSIsImRvYiI6IjE5OTMtMDktMjBUMDA6MDA6MDAuMDAwWiIsImlhdCI6MTU0MzgzODUyMiwiZXhwIjoxNTQzODgxNzIyLCJhdWQiOiJodHRwOi8vZXhhbXBsZS5jb20iLCJpc3MiOiJzYW5qZWV2LWd1cHRhIn0.x63QtrapvUZ-LLc9ClIL0_zY9PyNdioPRQADDHuzeaNbNRP5h3WDBRIzqUzXTlmEfBvgK5GdoIEcg8PrswkHFg",
+// "userData":{"firstName":"Rajat","lastName":"Joshi","email":"rajatjoshi@yopmail.com","role_id":{"roleName":"admin","roleId":1,"_id":"5bed0044c4a4480667e7771c"},"image":"profileImage/upload_d00a8684fd4ee789f3b363c4e2add33b-resized.jpg","image_thumbnail":"profileImage/upload_d00a8684fd4ee789f3b363c4e2add33b-thumbnail.jpg"}}}
+        this.blockUI.start('Loading...'); // Start blocking
         this.ProfileService.uploadImage(formData).subscribe(res => {
-          // this.blockUI.stop();
+          this.blockUI.stop();
+          
           console.log('---->', res)
-          if (res.status == 200) {
-            this.image = res.data.image
-            console.log('---->', this.image)
-            //       this.profileImage = `${environment.API_ENDPOINT}${res.data.image}`;
-            var temp = JSON.parse(localStorage.getItem('userName'));
-            temp.image = res.data.image
-            // temp.image_thumbnail =  res.data.imageThumbnail
-
-            // console.log(temp.image_thumbnail)
-            //        this._service.setSession(temp);
-
-            this.ProfileService.setProfileImage(res.data.image);
+          if (res.code == 200) {
+            this.image = res.data.userData.image       
+            this.viewprofile();        
+            var temp = JSON.parse(localStorage.getItem('userData'));
+            console.log(temp)
+            temp.image = res.data.userData.image
+            this._service.setSession(temp);
+            this.ProfileService.setProfileImage(res.data.userData.image);
             console.log("Profile updated");
-            this.toastr.success('image update successfully');
+            this.toastr.success('Image updated successfully');
 
           }
           //     else {
@@ -94,4 +98,5 @@ export class ViewprofileComponent implements OnInit {
   }
 
 
+  }
 }

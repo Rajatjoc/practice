@@ -9,23 +9,30 @@ export class AlwaysAuthGuard implements CanActivate {
   constructor(private httpClient :HttpClient, private router : Router) {
   }
   canActivate() {
-
-  //  this.checkauth().subscribe(res=>{
-  //   console.log(res)
-  //   if(res.code == 200){
+    return true;
+  //  let authorised = this.checkauth().subscribe(res=>{
+  //     if(res.code == 200){
   //     return true;
+  //   }else{
+  //     console.log("Herer")
+  //     this.router.navigate(['login'])      
+  //     return false;
   //   }
-  //   return false;
   //   })
-  //   return false;
-   
-   
-    if (localStorage.getItem("token")) {
-      return true;
-    }
-    else {
-      this.router.navigate(["login"]);
-    }
+  //   if(authorised)
+  //   return true;
+  //   else{
+  //     console.log("Inside logout")
+  //     this.router.navigate(['login'])
+  //     return false;
+  //   }
+    
+    // if (localStorage.getItem("token")) {
+    //   return true;
+    // }
+    // else {
+    //   this.router.navigate(["login"]);
+    // }
   }
   checkauth():Observable<any>{
     return this.httpClient.get(this.apiUrl + "users/checkauth");

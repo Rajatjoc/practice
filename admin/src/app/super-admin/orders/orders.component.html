@@ -1,13 +1,4 @@
-<!-- order id
-order date 
-customer name 
-billing address
-shipping address
-phone 
-address
-no of orders 
-order status
--->
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle" width="425" ></p-confirmDialog>
 
 <div class="row" style="padding-bottom:10px">
   <div class="col-sm-6">
@@ -16,12 +7,12 @@ order status
         <i class="fa fa-search"></i>
       </span>
       <input class="form-control" style="border:1px solid lightgray" [(ngModel)]="searchText" id="input2-group2" name="input2-group2"
-        placeholder="Search using Page Title" type="text" (ngModelChange)="serachtext()">
+        placeholder="Search by Customer Name" type="text" (ngModelChange)="searchtext()">
 
     </div>
     <i style="color: red" *ngIf="showSpaceErr">space not allowed!!! </i>
   </div>
-<!-- 
+  <!-- 
   <div class="col-sm-6">
     <Button class="btn btn-color pull-right" [routerLink]="[]">
       <i class="fa fa-plus"></i> Add</Button>
@@ -32,6 +23,10 @@ order status
 <div class="row ">
   <div class="col-12">
     <div class="card">
+      <div class="card-header">
+        <strong>Orders List</strong>
+
+      </div>
       <div class="card-body">
         <!-- <h3 class="card-title">CMS Pages</h3>
             <h6 class="card-sub1title">This is basic cms page listing</h6> -->
@@ -44,49 +39,43 @@ order status
                 <th scope="col">Customer Name </th>
                 <th scope="col">Product </th>
                 <th scope="col"> Phone No </th>
-                <th scope="col"> Billing Address  </th>
+                <th scope="col"> Billing Address </th>
                 <th scope="col"> Shipping Address</th>
                 <th scope="col"> Order Status </th>
                 <th scope="col">Action</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                            <!-- <tr *ngFor="let page of pages | paginate: { 
+
+              <tr *ngFor="let Orders of allOrders | paginate: { 
             itemsPerPage: 5,
             currentPage: p,
-            totalItems: totalItems };let i=index"> -->
-                <!-- <td scope="row">{{i+1}}</td>
-                <td>{{page.page_title}}</td>
-                <td>{{page.page_category}}</td> -->
-                <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+            totalItems: totalItems };let i=index">
+                <td scope="row">{{i+1}}</td>
+                <td>{{Orders._id}}</td>
+                <td>{{Orders.CustomerName}}</td>
+                <td>{{Orders.Product.product_name}}</td>
+                <td>{{Orders.PhoneNo}}</td>
+                <td>{{Orders.BillingAddress}}</td>
+                <td>{{Orders.ShippingAddress}}</td>
+
                 <td>
-                  <span *ngIf="page.status == 'Active'" class="badge badge-success">Active</span>
-                  <span *ngIf="page.status == 'InActive'" class="badge badge-danger">In-Active</span>
+                  <span *ngIf="Orders.OrderStatus == 'Active'" class="badge badge-success">Active</span>
+                  <span *ngIf="Orders.OrderStatus == 'InActive'" class="badge badge-danger">In-Active</span>
                 </td>
                 <td>
-                  <a class="fa fa-pencil " style="color:black; padding-right:10px" [routerLink]="['/auth/editCms/',page._id]"></a>
-                  <button class="fa fa-trash btn btn-link" style="color:red" (click)="delete(page._id)"></button>
-                  <button class="fa fa-eye btn btn-link" style="color:black" [routerLink]="['/auth/viewcmstemplate/',page._id]"></button>
+                    <div style="position:absolute">
+                  <a class="fa fa-pencil " style="color:black; padding-right:10px" [routerLink]="['/auth/orders/editorders/',Orders._id]"></a>
+                  <button class="fa fa-trash btn btn-link" style="color:red" (click)="delete(Orders._id)"></button>
+</div>
                 </td>
               </tr>
 
             </tbody>
           </table>
-          <pagination-controls (pageChange)="pageChanged($event)"
-           maxSize="9" 
-           directionLinks="true" 
-           autoHide="true" 
-           responsive="true"
-           previousLabel="Previous" 
-           nextLabel="Next">
-          
+          <pagination-controls (pageChange)="pageChanged($event)" maxSize="9" directionLinks="true" autoHide="true" responsive="true"
+            previousLabel="Previous" nextLabel="Next">
+
           </pagination-controls>
         </div>
       </div>
